@@ -1,7 +1,6 @@
 {
-  "name": "ContenfulGallery",
+  "name": "contenfulgallery",
   "version": "1.0.0",
-  "description": "",
   "main": ".eleventy.js",
   "dependencies": {},
   "devDependencies": {
@@ -15,5 +14,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidrichmill/SidMillerGallery.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sidrichmill/SidMillerGallery/issues"
+  },
+  "homepage": "https://github.com/sidrichmill/SidMillerGallery#readme",
+  "description": ""
 }

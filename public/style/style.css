@@ -1,0 +1,50 @@
+html, body {
+    height: 100%;
+    font-family: sans-serif;
+    background-color: rgb(241, 241, 229);
+  }
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.content{
+    flex: 1 0 auto;
+}
+
+.footer{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-shrink: 0;
+}
+
+h1 {
+    color: rgb(99, 112, 38);
+}
+
+.gallery{
+    display: flex;
+}
+
+.thumbnail{
+    max-width: 20vw;
+}
+
+.imagewrapper{
+    margin: auto;
+    height: 90vh;
+}
+
+.heroimage{
+    height: 100%;
+}
