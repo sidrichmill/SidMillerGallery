@@ -19,8 +19,6 @@ collections:
 
   - name: "tags"
     label: "Tags"
-    folder: "/src/tags"
-    create: true
-    slug: "{{ slug }}"
+    file: "src/_data/tags.json"
     fields:
       - {label: "Title", name: "title", widget: "string"}
