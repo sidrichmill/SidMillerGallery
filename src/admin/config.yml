@@ -16,8 +16,8 @@ collections:
       - {label: "Featured Image", name: "imageSrc", widget: "image"}
       - {label: "Alt Text", name: "imageAlt", widget: "string"}
       - {label: "Layout", name: "layout", widget: "hidden", default: "image.njk"}
-      - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+" ]}
-      - {label: "Tags", name: "tags", widget: "string", default: "image"}
+      - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+", image], default: ["image"]}
+      - {label: "Categories", name: "categories", widget: "relation", collection: "data", file: "tags", search_fields: ["tag"], value_field: ["tag"], multiple: true}
       -  label: "Details"
          name: "details"
          widget: "object"
@@ -26,3 +26,11 @@ collections:
           - {label: "Subject", name: "subject", widget: "select", options: ["landscape", "portrait"]}
           - {label: "Format", name: "format", widget: "select", options: ["35mm", "6x7", "6x6", "6x4.5", "4x5"]}
           - {label: "Film Stock", name: "stock", widget: "select", options: ["Portra 400", "HP5+", "Ektar", "Lomo 400", "Lomo 800", "Gold 200", "Superia Xtra 400"]}
+    - name: "data"
+      Label: "Data"
+      files:
+        - name: "tags"
+          label: "Tags"
+          file: "/src/_data/tags.yml"
+          - {label: "Tag", name: "tag", widget: "list"}
+
