@@ -15,7 +15,7 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "imageSrc", widget: "image"}
       - {label: "Alt Text", name: "imageAlt", widget: "string"}
-      - {label: "Tags", name: "tags", widget: "relation", collection: "tags", search_fields: ["title"], mulitple: true }
+      - {label: "Tags", name: "tags", widget: "relation", collection: "tags", search_fields: ["title"], value_field: "title", mulitple: true}
 
   - name: "tags"
     label: "Tags"
