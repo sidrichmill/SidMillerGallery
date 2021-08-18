@@ -1,6 +1,9 @@
-require('dotenv').config();
+const del = require('del');
 
 module.exports = function(eleventyConfig) {
+
+    const dirToClean = 'public/*';
+    del(dirToClean);
 
     eleventyConfig.addPassthroughCopy('./src/style');
     eleventyConfig.addPassthroughCopy('./src/assets');
@@ -14,3 +17,4 @@ module.exports = function(eleventyConfig) {
         }
     };
 }
+
