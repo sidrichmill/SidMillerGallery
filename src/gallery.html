@@ -1,0 +1,22 @@
+---
+
+title: Gallery
+layout: 'base.njk'
+
+---
+
+This is a Photo Gallery
+
+<div class="gallery">
+
+{% for image in collections.color %}
+
+<div class="thumbnail">
+    <img src="{{ image.data.image }}" alt="{{ image.data.imageAlt }}">
+</div>
+
+    
+{% endfor %}
+
+
+</div>

@@ -1,0 +1,10 @@
+---
+pagination:
+    data: images
+    size: 1
+    alias: image
+permalink: "gallery/{{ image.title | slug }}/"
+layout: "base.njk"
+---
+
+<img src="{{ image.imageSrc }}" alt="{{ image.imageAlt }}">

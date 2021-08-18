@@ -1,0 +1,19 @@
+{
+  "name": "ContenfulGallery",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eleventy.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "contentful": "^8.4.2",
+    "dotenv": "^10.0.0"
+  },
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
