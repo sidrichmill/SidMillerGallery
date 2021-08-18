@@ -19,6 +19,9 @@ collections:
 
   - name: "tags"
     label: "Tags"
-    file: "src/_data/tags.json"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
+    files:
+      - name: "tag"
+        label: "Tag"
+        file: "src/_data/tags.json"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
