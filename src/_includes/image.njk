@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
-    {{ imageAlt }}
     <div class="imagewrapper">
         <img class="heroimage" src="{{ image }}" alt="{{ imageAlt }}">
     </div>
-</body>
+    {{ imageAlt }}
+    {% for tag in tags %}
+        <a href="/{{ tag }}"> {{ tag }}</a>
+    {% endfor %}
+    </body>
 </html>

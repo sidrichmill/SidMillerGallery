@@ -15,11 +15,11 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "imageSrc", widget: "image"}
       - {label: "Alt Text", name: "imageAlt", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "image.njk"}
       - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+" ]}
       -  label: "Details"
          name: "details"
-         widget: "list"
-         allow_add: false
+         widget: "object"
          fields:
           - {label: "Color", name: "color", widget: "select", options: ["color", "black and white"]}
           - {label: "Subject", name: "subject", widget: "select", options: ["landscape", "portrait"]}
