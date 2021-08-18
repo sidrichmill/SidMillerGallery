@@ -15,13 +15,9 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "imageSrc", widget: "image"}
       - {label: "Alt Text", name: "imageAlt", widget: "string"}
-      - {label: "Tags", name: "tags", widget: "relation", collection: "tags", search_fields: ["title"], value_field: "title", mulitple: true}
-
-  - name: "tags"
-    label: "Tags"
-    files:
-      - name: "tag"
-        label: "Tag"
-        file: "src/_data/tags.json"
+      - label: "Category" 
+        name: "category"
+        widget: "list"
         fields:
-          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Tag", name: "tag", widget: "string"}
+            
