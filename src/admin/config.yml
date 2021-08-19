@@ -31,8 +31,8 @@ collections:
     label: "Data"
     files:
       - name: "tags"
-         label: "Tags"
-         file: "/src/_data/tags.yml"
-         fields:
-           - {label: "Tag", name: "tag", widget: "list"}
+        label: "Tags"
+        file: "/src/_data/tags.yml"
+        fields:
+          - {label: "Tag", name: "tag", widget: "list"}
 
