@@ -5,13 +5,14 @@ imageSrc: /assets/210501_rb67_prn10000014-positive-2.jpg
 imageAlt: A large bonsai tree
 layout: image.njk
 tags:
-  - all
   - color
   - landscape
   - medium format
+  - image
 details:
   color: color
   subject: landscape
   format: 6x7
-  stock: Portra 400
+  stock: Professional 100
+  camera: Mamiya RB67
 ---
