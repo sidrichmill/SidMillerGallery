@@ -8,6 +8,7 @@ tags:
   - color
   - medium format
   - landscape
+  - image
 details:
   color: color
   subject: portrait
