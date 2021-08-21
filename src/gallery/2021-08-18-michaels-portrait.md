@@ -5,12 +5,14 @@ imageSrc: /assets/210501_rb67_prn10000013-positive-2.jpg
 imageAlt: Portrait of a man playing the guitar
 layout: image.njk
 tags:
-  - photo
   - color
   - image
+  - portrait
+  - medium format
 details:
   color: color
   subject: portrait
   format: 6x7
-  stock: Portra 400
+  stock: Professional 100
+  camera: Mamiya RB67
 ---
