@@ -13,5 +13,6 @@ details:
   color: color
   subject: landscape
   format: 6x7
-  stock: Portra 400
+  stock: Professional 100
+  camera: Mamiya RB67
 ---
