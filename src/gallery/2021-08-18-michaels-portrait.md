@@ -5,6 +5,7 @@ imageSrc: /assets/210501_rb67_prn10000013-positive-2.jpg
 imageAlt: Portrait of a man playing the guitar
 layout: image.njk
 tags:
+  - photo
   - color
   - image
 details:

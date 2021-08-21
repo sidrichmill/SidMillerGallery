@@ -1,6 +1,37 @@
-<div class="header">
-<a class="title" href="/"><h1>Sid Miller Design</h1></a>
-<a href="/gallery">Gallery</a>
-<a href="/design">Design</a>
-<a href="/about">About</a>
-</div>
+<header class="site-head" role="banner">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="wrapper">
+    <div class="site-head__inner">
+      <a href="/" aria-label="ACME home" class="site-head__brand">
+        <img src="/assets/logo.svg" alt="ACME logo" />
+      </a>
+      <burger-menu max-width="600">
+        <nav class="navigation" aria-label="primary">
+          <ul role="list">
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#">Design</a>
+            </li>
+            <li>
+              <a href="/tags/photo/">Gallery</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+          </ul>
+        </nav>
+      </burger-menu>
+    </div>
+  </div>
+</header>
+
+{# <nav>
+    <ul class="menu">
+        <li class="logo"><a class="title" href="/">Sid Miller Design</a></li>
+        <li class="item"><a href="/tags/all">Gallery</a></li>
+        <li class="item"><a href="/design">Design</a></li>
+        <li class="item"><a href="/about">About</a></li>
+    </ul>
+</nav> #}

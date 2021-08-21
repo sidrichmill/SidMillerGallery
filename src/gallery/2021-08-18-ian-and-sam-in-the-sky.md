@@ -5,6 +5,7 @@ imageSrc: /assets/210525_rb67_prn100_008-positive-edit.jpg
 imageAlt: A couple standing on a tall rock. The blue sky stretches out in front of them.
 layout: image.njk
 tags:
+  - photo
   - color
   - image
 details:

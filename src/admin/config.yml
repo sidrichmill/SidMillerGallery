@@ -15,7 +15,7 @@ collections:
       - {label: "Featured Image", name: "imageSrc", widget: "image"}
       - {label: "Alt Text", name: "imageAlt", widget: "string"}
       - {label: "Layout", name: "layout", widget: "hidden", default: "image.njk"}
-      - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+", image], default: ["image"]}
+      - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+", "all"], default: ["all"]}
       # - {label: "Categories", name: "categories", widget: "relation", collection: "data", file: "tags", search_fields: ["tag"], value_field: "tag", multiple: true}
       -  label: "Details"
          name: "details"

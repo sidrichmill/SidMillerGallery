@@ -1,0 +1,13 @@
+Place image into src folder
+build process passes through copy to Public folder
+Build process creates data file for each image in "Gallery"
+Gallery files have front matter:
+    Title:
+    File Name:
+    Location:
+    Date:
+    Tags:
+     -
+     -
+     -
+     -

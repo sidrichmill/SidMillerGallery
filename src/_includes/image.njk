@@ -9,12 +9,28 @@
     <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
-    <div class="imagewrapper">
-        <img class="heroimage" src="{{ imageSrc }}" alt="{{ imageAlt }}">
+<div class="container">
+    <div class="image-wrapper">
+        <img class="hero-image" src="{{ imageSrc }}" alt="{{ imageAlt }}">
     </div>
-    {{ imageAlt }}
-    {% for tag in tags %}
-        <a href="/{{ tag }}"> {{ tag }}</a>
-    {% endfor %}
-    </body>
+    
+    <div class="tag-list">
+        {# <h3>Tags</h3>
+            <ul>
+                {% for tag in tags %}
+                    <li class="tag-item"><a href="/tags/{{ tag }}">{{ tag }}</a></li>
+                {% endfor %}
+            </ul> #}
+            {% for object, key in details %}
+            <ul>
+               <li> {{ object }} : <a href="/tags/{{ key }}">{{ key }}</a></li>
+            </ul>
+            {% endfor %}
+    </div>
+
+{% set previousPost = collections.image | getPreviousCollectionItem(page) %}
+
+
+</div>
+</body>
 </html>

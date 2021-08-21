@@ -5,10 +5,10 @@ imageSrc: /assets/210501_RB67_PRN10000015-positive-2.jpg
 imageAlt: a color film picture of Birds of Paradise flowers
 layout: image.njk
 tags:
+  - photo
   - color
   - landscape
   - medium format
-  - image
 details:
   color: color
   subject: landscape
