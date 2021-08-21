@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}t</title>
-    <link rel="stylesheet" href="/style/reset.css">
-    <link rel="stylesheet" href="/style/style.css">
-</head>
-<body>
+---
+layout: "base.njk"
+---
+
 <div class="container">
     <div class="image-wrapper">
         <img class="hero-image" src="{{ imageSrc }}" alt="{{ imageAlt }}">
@@ -28,9 +21,5 @@
             {% endfor %}
     </div>
 
-{% set previousPost = collections.image | getPreviousCollectionItem(page) %}
-
 
 </div>
-</body>
-</html>
