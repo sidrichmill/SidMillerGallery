@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="/style/reset.css">
+    <link rel="stylesheet" href="/style/style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Halant:wght@600&family=Hind:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <header class="site-head" role="banner">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="wrapper">
+    <div class="site-head__inner">
+      <a href="/" aria-label="ACME home" class="site-head__brand">
+        <img src="/assets/logo.svg" alt="ACME logo" />
+      </a>
+      <burger-menu max-width="600">
+        <nav class="navigation" aria-label="primary">
+          <ul role="list">
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#">Design</a>
+            </li>
+            <li>
+              <a href="/tags/photo/">Gallery</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+          </ul>
+        </nav>
+      </burger-menu>
+    </div>
+  </div>
+</header>
+
+
+
+    
+          
+
+<main id="main-content" tabindex="-1" class="wrapper">
+    <article class="post flow">
+
+
+        <h2>Welcome</h2>
+        
+        
+        <ul>
+        <h3>Ian and Sam in the Sky</h3>
+            
+                            
+                    <li>Color : color</li>
+                
+            
+                            
+                    <li>Subject : portrait</li>
+                
+            
+                            
+                    <li>Format : 6x7</li>
+                
+            
+                            
+                    <li>Stock : Portra 400</li>
+                
+            
+        </ul>
+        
+        <ul>
+        <h3>Birds of Paradise</h3>
+            
+                            
+                    <li>Color : color</li>
+                
+            
+                            
+                    <li>Subject : landscape</li>
+                
+            
+                            
+                    <li>Format : 6x7</li>
+                
+            
+                            
+                    <li>Stock : Portra 400</li>
+                
+            
+        </ul>
+        
+        <ul>
+        <h3>Dev is Fashion</h3>
+            
+                            
+                    <li>Color : black and white</li>
+                
+            
+                            
+                    <li>Subject : portrait</li>
+                
+            
+                            
+                    <li>Format : 6x7</li>
+                
+            
+                            
+                    <li>Stock : HP5+</li>
+                
+            
+        </ul>
+        
+        <ul>
+        <h3>Michael's Portrait</h3>
+            
+                            
+                    <li>Color : color</li>
+                
+            
+                            
+                    <li>Subject : portrait</li>
+                
+            
+                            
+                    <li>Format : 6x7</li>
+                
+            
+                            
+                    <li>Stock : Portra 400</li>
+                
+            
+        </ul>
+        
+       
+    </article>
+</main>
+
+
+
+    
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+<script src="/js/burger-menu.js" type="module" defer></script>
+</body>
+</html>

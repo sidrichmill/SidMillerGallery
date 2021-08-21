@@ -10,22 +10,92 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "imageSrc", widget: "image"}
-      - {label: "Alt Text", name: "imageAlt", widget: "string"}
-      - {label: "Layout", name: "layout", widget: "hidden", default: "image.njk"}
-      - {label: "Tags", name: "tags", widget: "select", multiple: true, options: ["color", "black and white", "landscape", "portrait", "medium format", "35mm", "4x5", "Portra", "HP5+", "all"], default: ["all"]}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "imageSrc", widget: "image" }
+      - { label: "Alt Text", name: "imageAlt", widget: "string" }
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "image.njk",
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "select",
+          multiple: true,
+          options:
+            [
+              "color",
+              "black and white",
+              "landscape",
+              "portrait",
+              "medium format",
+              "35mm",
+              "4x5",
+              "Portra",
+              "HP5+",
+              "all",
+            ],
+          default: ["all"],
+        }
       # - {label: "Categories", name: "categories", widget: "relation", collection: "data", file: "tags", search_fields: ["tag"], value_field: "tag", multiple: true}
-      -  label: "Details"
-         name: "details"
-         widget: "object"
-         fields:
-          - {label: "Color", name: "color", widget: "select", options: ["color", "black and white"]}
-          - {label: "Subject", name: "subject", widget: "select", options: ["landscape", "portrait"]}
-          - {label: "Format", name: "format", widget: "select", options: ["35mm", "6x7", "6x6", "6x4.5", "4x5"]}
-          - {label: "Film Stock", name: "stock", widget: "select", options: ["Portra 400", "HP5+", "Ektar", "Lomo 400", "Lomo 800", "Gold 200", "Superia Xtra 400"]}
-          
+      - label: "Details"
+        name: "details"
+        widget: "object"
+        fields:
+          - {
+              label: "Camera",
+              name: "camera",
+              widget: "select",
+              options:
+                [
+                  "Mamiya RB67",
+                  "Mamiya 645E",
+                  "Graflex Crown Graphic",
+                  "Minolta X-700",
+                  "Nikon L35AF",
+                  "Pentax PC35AF",
+                ],
+            }
+          - {
+              label: "Color",
+              name: "color",
+              widget: "select",
+              options: ["color", "black and white"],
+            }
+          - {
+              label: "Subject",
+              name: "subject",
+              widget: "select",
+              options: ["landscape", "portrait"],
+            }
+          - {
+              label: "Format",
+              name: "format",
+              widget: "select",
+              options: ["35mm", "6x7", "6x6", "6x4.5", "4x5"],
+            }
+          - {
+              label: "Film Stock",
+              name: "stock",
+              widget: "select",
+              options:
+                [
+                  "Portra 400",
+                  "HP5+",
+                  "Delta 400",
+                  "Ektar 100",
+                  "Lomo 400",
+                  "Lomo 800",
+                  "Gold 200",
+                  "Superia Xtra 400",
+                  "UltraMax 400",
+                  "Professional 100",
+                ],
+            }
+
   # - name: "data"
   #   label: "Data"
   #   files:
@@ -34,4 +104,3 @@ collections:
   #       file: "/src/_data/tags.yml"
   #       fields:
   #         - {label: "Tag", name: "tag", widget: "list"}
-
