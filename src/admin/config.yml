@@ -36,9 +36,9 @@ collections:
               "4x5",
               "Portra",
               "HP5+",
-              "all",
+              "image",
             ],
-          default: ["all"],
+          default: ["image"],
         }
       # - {label: "Categories", name: "categories", widget: "relation", collection: "data", file: "tags", search_fields: ["tag"], value_field: "tag", multiple: true}
       - label: "Details"
