@@ -1,22 +1,18 @@
 ---
-
 title: Gallery
-layout: 'base.njk'
-
+layout: "base.njk"
 ---
 
 This is a Photo Gallery
 
 <div class="gallery">
+  {% for image in collections.image %}
 
-{% for image in collections.all %}
+  <div class="thumbnail">
+    <a href="{{ image.url }}"
+      ><img src="{{ image.data.imageSrc }}" alt="{{ image.data.imageAlt }}"
+    /></a>
+  </div>
 
-<div class="thumbnail">
-   <a href="{{ image.url }}"><img src="{{ image.data.imageSrc }}" alt="{{ image.data.imageAlt }}"></a>
-</div>
-
-    
-{% endfor %}
-
-
+  {% endfor %}
 </div>
