@@ -1,0 +1,8 @@
+Images organized with tags on cloudinary
+
+in _data folder get list (JSON) of all images with their tags/metadata
+
+image.njk > for each image in collection.images build page per image ? is this needed?
+
+gallery.njk > for each tag create gallery with all images with that tag
+

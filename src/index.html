@@ -11,17 +11,17 @@ layout: 'base.njk'
 
 
         <h2>Welcome</h2>
-        
+
         {% for image in collections.detailsCollection %}
         <ul>
-        <h3>{{ image.data.title }}</h3>
+            <h3>{{ image.data.title }}</h3>
             {% for key in image.data.details %}
-                            
-                    <li>{{ key[0] | capitalize }} : {{ key[1] }}</li>
-                
+
+            <li>{{ key[0] | capitalize }} : {{ key[1] }}</li>
+
             {% endfor %}
         </ul>
         {% endfor %}
-       
+
     </article>
 </main>
