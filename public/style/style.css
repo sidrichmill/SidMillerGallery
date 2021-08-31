@@ -10,13 +10,14 @@ body {
   background: var(--color-light-shade);
   color: var(--color-dark);
   line-height: 1.5;
-  font-family: "Hind", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Jost", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
 }
 
 h1,
 h2 {
-  font-family: "Halant", Georgia, "Times New Roman", Times, serif;
+  /* font-family: "Jost", Georgia, "Times New Roman", Times, serif; */
+  font-stretch: 50%;
   font-weight: 600;
   line-height: 1.1;
   max-width: 30ch;
@@ -131,7 +132,19 @@ main:focus {
 
 .site-head__brand {
   display: block;
-  width: 3rem;
+  width: 20rem;
+  text-decoration: none;
+}
+
+.brand__text{
+  font-weight: 300;
+  text-align: center;
+  transition: all 500ms ease;
+}
+
+.site-head__brand:hover .brand__text{
+  font-weight: 400;
+  transition: all 250ms ease;
 }
 
 .navigation ul {
