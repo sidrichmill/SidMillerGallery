@@ -19,7 +19,7 @@ async function getImages() {
         tags: true,
         context: true,
         metadata: true,
-        max_results: 10
+        max_results: 500
     },
         function (error, result) {
             if (error) { console.log("error in cloudinaryImages.js", error) }
