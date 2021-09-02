@@ -1,4 +1,5 @@
 const del = require('del');
+var justifiedLayout = require('justified-layout')
 
 module.exports = function(eleventyConfig) {
 
@@ -9,6 +10,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy('./src/assets');
     eleventyConfig.addPassthroughCopy('./src/admin');
     eleventyConfig.addPassthroughCopy('./src/js');
+
+   // eleventyConfig.addShortcode("justifiedLayout", justifiedLayout(input, config)); // {{ justifiedLayout input, config }}
 
 
     eleventyConfig.addCollection("detailsCollection", function (collection) {

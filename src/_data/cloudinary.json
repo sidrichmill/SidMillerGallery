@@ -1,7 +1,8 @@
 {
     "baseUrl": "https://res.cloudinary.com/sid-miller-design/",
-    "small": "h_800/",
-    "medium": "h_1200/",
-    "large": "h_2000/"
+    "xsmall": "w_300/q_70/",
+    "small": "w_500/q_70/",
+    "medium": "w_800/q_70/",
+    "large": "w_1200/q_70/"
 }
 

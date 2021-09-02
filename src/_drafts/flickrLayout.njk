@@ -1,0 +1,48 @@
+---
+
+title: Gallery
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryTags
+  size: 1
+  alias: cltag
+permalink: /cloudinarytags/{{ cltag | slug }}/
+
+---
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+
+<h2>{{ cltag }}</h2>
+
+<ul class="gallery">
+
+{% for image in cloudinaryImages %}
+  {% for tag in image.tags %}
+    {% if cltag === tag %}
+      
+       {# <a href="/cloudinaryImages/{{ image.file | slug }}/"><img class="thumbnail-img" src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}" alt="placeholder alr" loading="lazy"></a> #}
+       <a href="/cloudinaryImages/{{ image.file | slug }}/">
+          <img 
+            class="thumbnail-img" 
+            srcset="{{ cloudinary.baseUrl }}{{ cloudinary.xsmall }}{{ image.urlSlug }} 200w,
+                    {{ cloudinary.baseUrl }}{{ cloudinary.medium }}{{ image.urlSlug }} 1200w,
+                    {{ cloudinary.baseUrl }}{{ cloudinary.large }}{{ image.urlSlug }} 2000w"
+            sizes="(max-width: 800px) 200px, (max-width: 1200px) 1200px, (max-width: 2000px) 2000px"
+            src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}"
+            alt="{{ image.altText }}" 
+            loading="lazy">
+       </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+
+</ul>
+
+</main>
+{# <script src="./js/generateJustifiedOutput.js">
+{{ cloudinaryImages }}
+generateJustifiedOutput();
+</script> #}
