@@ -1,0 +1,126 @@
+---
+
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryTags
+  size: 1
+  alias: cltag
+permalink: /flickrjustified/{{ cltag | slug }}/
+
+---
+
+<script src="/js/fjGallery.min.js"></script>
+<style>
+    .fj-gallery {
+        position: relative;
+        overflow: hidden;
+        /* -webkit-transition: .2s height ease-in-out;
+        transition: .2s height ease-in-out; */
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
+    .fj-gallery::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .fj-gallery .fj-gallery-item {
+        float: left;
+        top: 0;
+        left: 0;
+        /* -webkit-transition: .2s -webkit-transform ease-in-out;
+        transition: .2s transform ease-in-out; */
+    }
+    .fj-gallery .fj-gallery-item > img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+
+<h2>Flickr Justified Gallery - {{ cltag }}</h2>
+
+<div class="fj-gallery">
+
+{% for image in cloudinaryImages %}
+    {% for tag in image.tags %}
+        {% if cltag === tag %}
+            {% if loop.index0 < 24 %}    
+                {# <div class="fj-gallery-item"><img src="{{ cloudinary.baseUrl }}{{ cloudinary.xsmall }}{{ image.urlSlug }}" alt="{{ image.altText }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}"></div> #}
+                <div class="fj-gallery-item" style="background-color: #f1f1f1">
+                        <img 
+                        srcset="{{ cloudinary.baseUrl }}l_text:Arial_200:xsmall/{{ cloudinary.xsmall }}{{ image.urlSlug }} 300w,
+                                {{ cloudinary.baseUrl }}l_text:Arial_200:small/{{ cloudinary.small }}{{ image.urlSlug }} 500w,
+                                {{ cloudinary.baseUrl }}l_text:Arial_200:medium/{{ cloudinary.medium }}{{ image.urlSlug }} 800w,
+                                {{ cloudinary.baseUrl }}l_text:Arial_200:large/{{ cloudinary.large }}{{ image.urlSlug }} 1200w"
+                        sizes="(min-width: 865px) 40vw, 90vw"
+                        src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}"
+                        alt="{{ image.altText }}" 
+                        loading="lazy"
+                        data-width="{{ image.width }}" 
+                        data-height="{{ image.height }}"
+                        >
+                </div>
+
+                {# <a href="/cloudinaryImages/{{ image.file | slug }}/"><img class="thumbnail-img" src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}" alt="placeholder alr" loading="lazy"></a> #}
+                {# <a href="/cloudinaryImages/{{ image.file | slug }}/">
+
+                        width="{{ image.width }}" 
+                        height="{{ image.height }}"
+                    <img 
+                        class="thumbnail-img" 
+                        srcset="{{ cloudinary.baseUrl }}{{ cloudinary.xsmall }}{{ image.urlSlug }} 200w,
+                                {{ cloudinary.baseUrl }}{{ cloudinary.medium }}{{ image.urlSlug }} 1200w,
+                                {{ cloudinary.baseUrl }}{{ cloudinary.large }}{{ image.urlSlug }} 2000w"
+                        sizes="(max-width: 800px) 200px, (max-width: 1200px) 1200px, (max-width: 2000px) 2000px"
+                        src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}"
+                        alt="{{ image.altText }}" 
+                        loading="lazy">
+                </a>
+                </li> #}
+            {% endif %}
+        {% endif %} 
+    {% endfor %}
+{% endfor %}
+      
+</div>
+
+</main>
+<script>
+    let rowHeight = 320;
+    let viewHeight = window.innerHeight;
+    let rowHeight = Math.round((viewHeight/100)*40);
+
+    fjGallery
+    
+    fjGallery(document.querySelectorAll('.fj-gallery'), {
+        itemSelector: '.fj-gallery-item',
+        rowHeight: rowHeight
+    });
+</script>
+
+{# <script>
+
+let images = document.getElementsByTagName("img");
+window.onresize = function(){
+for(var image of images){
+    if(image.dataset.width > image.width){
+        image.classList.add("oversized")
+    } else {
+        image.classList.remove("oversized")
+    }
+};
+}
+
+</script>
+
+<style>
+
+.oversized {
+    outline: solid red;
+}
+
+</style> #}
