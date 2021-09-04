@@ -5,6 +5,7 @@
     transition: .2s height ease-in-out; */
     margin-top: 3vh;
     margin-bottom: 3vh;
+    min-height: 100vh;
 }
 .fj-gallery::after {
     content: "";

@@ -1,11 +1,13 @@
 ---
 layout: 'base.njk'
 
+tags: 
+
 pagination:
   data: cloudinaryImages
   size: 1
   alias: image
-permalink: "Images/{{ image.file | slug }}/index.html"
+permalink: "gallery/{{ image.file | slug }}/index.html"
 
 ---
 
@@ -18,7 +20,7 @@ permalink: "Images/{{ image.file | slug }}/index.html"
         <h3>Tags</h3>
             <ul>
                 {% for tag in image.tags %}
-                    <li class="tag-item"><a href="/cloudinarytags/{{ tag | slug }}">{{ tag }}</a></li>
+                    <li class="tag-item"><a href="/tags/{{ tag | slug }}">{{ tag }}</a></li>
                 {% endfor %}
             </ul>
     </div>
