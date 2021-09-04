@@ -400,6 +400,11 @@ main:focus {
     max-width: 100%;
   }
 
+  .site-head__brand {
+    width: 15rem;
+    text-decoration: none;
+  }
+
 }
 
 .container {
@@ -466,6 +471,13 @@ main:focus {
   animation: fadeInAnimation ease .3s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+}
+
+.vertical{
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vw;
+  margin: 2.5vw 0;
 }
 
 @keyframes fadeInAnimation {

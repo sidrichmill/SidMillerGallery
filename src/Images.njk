@@ -17,11 +17,20 @@ permalink: "gallery/{{ image.file | slug }}/index.html"
     </div>
     
     <div class="tag-list">
+    
+            <label for="tags">Choose another tag:</label>
+                <select name="tags" id="tags" onchange="location.assign(this.value)">
+                    {% for tag in image.tags %}
+                        <option value="/tags/{{ tag | slug }}/">{{ tag }}</option>
+                    {% endfor %}
+                </select>
         <h3>Tags</h3>
             <ul>
                 {% for tag in image.tags %}
                     <li class="tag-item"><a href="/tags/{{ tag | slug }}">{{ tag }}</a></li>
                 {% endfor %}
+
+
             </ul>
     </div>
 

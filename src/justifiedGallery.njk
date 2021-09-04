@@ -12,7 +12,13 @@ permalink: /tags/{{ cltag | slug }}/
 
 <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-<h2>Flickr Justified Gallery - {{ cltag }}</h2>
+<h2>{{ cltag }}</h2> 
+<label for="tags">Choose another tag:</label>
+<select name="tags" id="tags" onchange="location.assign(this.value)">
+    {% for tag in cloudinaryTags %}
+        <option value="/tags/{{ tag | slug }}/">{{ tag }}</option>
+    {% endfor %}
+</select>
 
     <div class="fj-gallery">
 
