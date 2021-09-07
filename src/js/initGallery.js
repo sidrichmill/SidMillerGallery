@@ -5,40 +5,72 @@ let rowHeight = Math.round((viewHeight/100)*40);
 let rowMax = Math.round(rowHeight * 1.4);
 
 
-console.log("viewHeight", viewHeight, "rowHeight", rowHeight, "rowMax", rowMax);
+console.log("viewHeight", viewHeight , "viewWidth", viewWidth, "rowHeight", rowHeight, "rowMax", rowMax);
 
 var baseURL = "https://res.cloudinary.com/sid-miller-design/";
 
 function initGallery(){
-
-    let gallery = fjGallery(document.querySelectorAll('.fj-gallery'), {
+    // if js is enabled & >600px gallery is changed to .fj-gallery
+    var gallery = document.querySelector('.gallery');
+        gallery.classList.add("fj-gallery");
+        gallery.classList.remove("gallery");
+     // get all gallery items and change them to fj-gallery-items
+    var galleryItems = document.querySelectorAll('.gallery-item');
+    for(var item of galleryItems){
+        item.classList.add("fj-gallery-item");
+        item.classList.remove("gallery-item", "landscape", "portrait", "panoramic");
+    };
+    // get all images and add their width and height attribute
+    let images = document.getElementsByTagName("img");
+    for(var image of images){
+        image.width = image.dataset.width;
+        image.height = image.dataset.height;
+    };
+    // initialize fj-gallery
+    let fjgallery = fjGallery(document.querySelectorAll('.fj-gallery'), {
         itemSelector: '.fj-gallery-item',
         rowHeight: rowHeight,
         onJustify: showImages()
     });
 
-console.log(gallery[0].fjGallery);
+    console.log("initGallery has run");
 
 }
 
-function initVertical(){
-    var gallery = document.querySelector('.fj-gallery');
-    console.log(gallery);
-    gallery.classList.remove("fj-gallery");
-    gallery.classList.add("vertical");
+// function initVertical(){
 
-    let images = document.getElementsByTagName("img");
-    for(var image of images){
-        image.removeAttribute("height");
-    };
+//     // var gallery = document.querySelector('.fj-gallery');
+//      //console.log(gallery);
+//     // gallery.classList.remove("fj-gallery");
+//     // gallery.classList.add("vertical");
 
-    var imgWidth = Math.round(viewWidth*.9);
-    showImages(imgWidth);
-};
+//     let images = document.getElementsByTagName("img");
+//     for(var image of images){
+//         image.removeAttribute("height");
+//     };
+
+//     var imgWidthVert = Math.round(viewWidth*.9);
+//     //showImages(imgWidthVert);
+
+//     let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
+
+//     for(var box of boxes){showElement(box)};
+//     //console.log(images);
+//     for(var image of images){
+//         if(image.complete){
+//             showElement(image);
+//         }else{
+//             image.addEventListener("load", (event) => showElement(event.target))
+//         }
+    
+//     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidthVert + "/" +  image.dataset.slug;
+//     image.src = newSrc;
+//     };
+// };
     
 
-function showImages(imgWidth){
-    let boxes = document.querySelectorAll(".fj-gallery-item");
+function showImages(){
+    let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
 
     for(var box of boxes){showElement(box)};
 
@@ -51,23 +83,20 @@ function showImages(imgWidth){
             image.addEventListener("load", (event) => showElement(event.target))
         }
     
-    swapSrc(image, imgWidth);
+    var imgWidth = Math.round(image.dataset.ratio * rowMax);
+    var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidth + "/" +  image.dataset.slug;
+    image.src = newSrc;
     };
     
 };
 
-function swapSrc(el, columnWidth){
-    if (columnWidth == undefined){
-        var imgWidth = Math.round(el.dataset.ratio * rowMax);
-    }else{
-        var imgWidth = columnWidth;
-    }
-    
-    var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidth + "/" +  el.dataset.slug;
-   // console.log("newSrc", newSrc);
-    el.src = newSrc;
+// function swapSrc(el, columnWidth){
 
-};
+//     var imgWidth = Math.round(image.dataset.ratio * rowMax);
+//     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidth + "/" +  image.dataset.slug;
+//     image.src = newSrc;
+
+// };
 
 function showElement(el){
     //console.log("Show", el)
@@ -75,5 +104,5 @@ function showElement(el){
         el.classList.remove("hidden");
 };
 
-if(viewWidth > 600){initGallery()} else {initVertical()};
+if(viewWidth > 600){initGallery()} // else {initVertical()};
 
