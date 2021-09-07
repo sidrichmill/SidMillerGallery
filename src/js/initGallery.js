@@ -1,4 +1,5 @@
-let viewHeight = window.innerHeight;
+//let viewHeight = window.innerHeight;
+let viewHeight = document.documentElement.clientHeight;
 let dpr = window.devicePixelRatio;
 let viewWidth = window.innerWidth*dpr;
 let rowHeight = Math.round((viewHeight/100)*40);
