@@ -13,19 +13,18 @@ permalink: /tags/{{ cltag | slug }}/
 <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
 <h2>{{ cltag }}</h2> 
-<label for="tags">Choose another tag:</label>
+<label for="tags">Choose another catagory:</label>
 <select name="tags" id="tags" onchange="location.assign(this.value)">
     {% for tag in cloudinaryTags %}
-        <option value="/tags/{{ tag | slug }}/">{{ tag }}</option>
+        <option value="/tags/{{ tag | slug }}/" {% if tag === cltag %}selected{% endif %}>{{ tag }}</option>
     {% endfor %}
 </select>
 
     <div class="fj-gallery">
-
         {% for image in cloudinaryImages %}
             {% for tag in image.tags %}
                 {% if cltag === tag %}
-                    {% if loop.index0 < 24 %}    
+                    {% if loop.index0 < 24 %}
                         <a class="fj-gallery-item hidden" href="/gallery/{{ image.file | slug }}/">
                             <img class="hidden" src="{{ cloudinary.baseUrl }}c_scale,h_150,e_blur:100/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
                         </a>
@@ -40,6 +39,7 @@ permalink: /tags/{{ cltag | slug }}/
 
 <script src="/js/fjGallery.min.js"></script>
 <script src="/js/initGallery.js"></script>
+
 <noscript>
     <style>
     .hidden{

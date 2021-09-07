@@ -1,0 +1,17 @@
+    {% for tag in cloudinaryTags %}
+        <div>
+            <input type="checkbox" name="{{ tag | slug }}" id="{{ tag | slug }}" value="{{ tag | slug }}" oninput="console.log(this.value)">
+            <label for="tag">{{ tag }}</label>
+        </div>
+    {% endfor %}
+<script>
+    var filters = [];
+    function filterTag(value){
+        let images = document.getElementsByTagName("img");
+        for (image of images){
+            var imgTags = image.dataset.tags.split(" ");
+            
+            var common filters.filter(x => imgTags.includes(x));
+        }
+    }
+</script>

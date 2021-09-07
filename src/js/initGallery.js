@@ -5,7 +5,7 @@ let rowHeight = Math.round((viewHeight/100)*40);
 let rowMax = Math.round(rowHeight * 1.4);
 
 
-console.log("rowHeight", rowHeight, "rowMax", rowMax);
+console.log("viewHeight", viewHeight, "rowHeight", rowHeight, "rowMax", rowMax);
 
 var baseURL = "https://res.cloudinary.com/sid-miller-design/";
 
