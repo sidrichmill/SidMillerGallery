@@ -1,0 +1,51 @@
+---
+
+layout: 'base.njk'
+
+---
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+
+<h2>Featured Gallery</h2> 
+
+{% include "tagSelection.njk" %}
+
+
+    <div class="fj-gallery">
+        {% for image in cloudinaryImages %}
+            {% for tag in image.tags %}
+                {% if cltag === tag %}
+                    {% if loop.index0 < 24 %}
+                        <a class="fj-gallery-item hidden" href="/gallery/{{ image.file | slug }}/">
+                            <img class="hidden" src="{{ cloudinary.baseUrl }}c_scale,h_150,e_blur:100/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
+                        </a>
+                    {% endif %}
+                {% endif %} 
+            {% endfor %}
+        {% endfor %}
+        
+    </div>
+
+</main>
+
+<script src="/js/fjGallery.min.js"></script>
+<script src="/js/initGallery.js"></script>
+
+<noscript>
+    <style>
+    .hidden{
+        opacity: 1
+    }
+    .fj-gallery{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1vw;
+    }
+    .fj-gallery-item{
+        flex: 1 0 25vw;
+        background-color: transparent;
+    }
+    </style>
+
+</noscript>
+
