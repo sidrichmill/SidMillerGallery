@@ -21,7 +21,7 @@ permalink: /tags/{{ cltag | slug }}/
             {% for tag in image.tags %}
                 {% if cltag === tag %}
                     {% if loop.index0 < 24 %}
-                        <a class="fj-gallery-item hidden" href="/gallery/{{ image.file | slug }}/">
+                        <a class="fj-gallery-item hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
                             <img class="hidden" src="{{ cloudinary.baseUrl }}c_scale,h_150,e_blur:100/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
                         </a>
                     {% endif %}

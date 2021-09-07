@@ -75,5 +75,5 @@ function showElement(el){
         el.classList.remove("hidden");
 };
 
-if(innerWidth > 600){initGallery()} else {initVertical()};
+if(viewWidth > 600){initGallery()} else {initVertical()};
 
