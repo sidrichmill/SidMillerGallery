@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "eleventy --serve",
-    "build": "eleventy"
+    "build": "eleventy",
+    "uploadImages": "node src/_utility/cloudinaryUpload.js"
   },
   "keywords": [],
   "author": "",

@@ -14,8 +14,15 @@ layout: 'base.njk'
 <ul>
 
 
-        {% for tag in cloudinaryTags %}
-            <li><a href="/tags/{{ tag | slug }}/">{{ tag }}</a></li>
+        {% for folder in cloudinaryFolders %}
+            <a href="#">{{ folder.name }}</a>
+
+            -
+
+            {% for image in folder.files %}
+                <li>{{ image.name }}</li>
+            {% endfor %}
+            <li></li>
         {% endfor %}
 </ul>
 

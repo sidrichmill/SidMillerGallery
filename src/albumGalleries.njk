@@ -3,37 +3,33 @@
 layout: 'base.njk'
 
 pagination:
-  data: cloudinaryTags
+  data: cloudinaryFolders
   size: 1
-  alias: cltag
-permalink: /tags/{{ cltag | slug }}/
+  alias: album
+permalink: /albums/{{ album.name | slug }}/
 
 ---
 
 <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-<h2>{{ cltag }}</h2> 
-
-{% include "tagSelection.njk" %}
+<h2>{{ album.name }}</h2> 
 
     <div class="gallery">
-        {% for image in cloudinaryImages %}
-            {% for tag in image.tags %}
-                {% if cltag === tag %}
-                    {% if loop.index0 < 24 %}
+        {% for folder in cloudinaryFolders %}
+            {% for image in folder.files %}
+                    {% if loop.index0 < 24 %} {# limit to 24 images #}
                         {% if image.width > image.height * 2 %}
                             <a class="gallery-item panoramic hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
                         {% elif image.width > image.height %}
                             <a class="gallery-item landscape hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
                         {% elif image.width < image.height %}
                             <a class="gallery-item portrait hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
-                        {% endif %}
+                    {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                             {# width="{{ image.width }}" height="{{ image.height }}" #}
                         </a>
                     {% endif %}
-                {% endif %} 
             {% endfor %}
         {% endfor %}
         
