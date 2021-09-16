@@ -12,33 +12,150 @@ permalink: /albums/{{ album.name | slug }}/
 
 <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-<h2>{{ album.name }}</h2> 
+<h2>{{ album.name }}</h2>
+
+
+<button onclick="swapClass('shown', 'hidden', 'slider')">open slider</button>
 
     <div class="gallery">
-        {% for folder in cloudinaryFolders %}
-            {% for image in folder.files %}
+
+            {% for image in album.files %}
                     {% if loop.index0 < 24 %} {# limit to 24 images #}
                         {% if image.width > image.height * 2 %}
-                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <button class="gallery-item panoramic hidden" onclick="goToSlider('{{ image.name | slug }}')">
+                            {# href="/gallery/{{ image.file | slug }}#imageWrapper" #}
                         {% elif image.width > image.height %}
-                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <button class="gallery-item landscape hidden" onclick="goToSlider('{{ image.name | slug }}')">
                         {% elif image.width < image.height %}
-                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <button class="gallery-item portrait hidden" onclick="goToSlider('{{ image.name | slug }}')">
                     {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                             {# width="{{ image.width }}" height="{{ image.height }}" #}
-                        </a>
+                        </button>    
                     {% endif %}
             {% endfor %}
-        {% endfor %}
+
         
     </div>
+    <div class="slider initiallyHidden" >
+        <button class="closeButton" onclick="swapClass('hidden', 'shown', 'slider')"> Close </button>
+            {% for image in album.files %}
+                <div class="sliderItem" id="{{ image.name | slug }}">
+                {% if not loop.first %}
+                    <a class="sliderButton" href="#{{ album.files[loop.index0 - 1].name | slug }}"><</a>
+                {% endif %}
+                    <img class="sliderImage" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                {% if not loop.last %}
+                    <a class="sliderButton" href="#{{ album.files[loop.index0 + 1].name | slug }}">></a>
+                {% endif %}
+                </div>
+            {% endfor %}
+    </div>
+
+    <style>
+        .slider{
+            height: 100vh;
+            width: 100vw;
+            overflow-x: scroll;
+            align-items: center;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: auto;
+            display: flex;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgb(222,222,222);
+            transition: all .2s ease-in-out; 
+        }
+
+        .sliderItem{
+            flex: 1 0 100vw;
+            height: 90vh;
+            margin-right: 10px;
+            scroll-snap-align: center;
+            pointer-events: inherit;
+            display: flex;
+            align-items: center;
+        }
+
+        .sliderImage{
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: scale-down;
+            pointer-events: inherit;
+        }
+
+        .sliderButton{
+            background: white;
+            padding: 2rem;
+            text-decoration: none;
+            margin: 1rem;
+        }
+
+        .closeButton{
+            position: fixed;
+            top:0;
+            left:0;
+            background: white;
+            padding: 2rem;
+            text-decoration: none;
+            margin: 1rem;
+        }
+
+        .smooth{
+            scroll-behavior: smooth;
+        }
+
+        .initiallyHidden{
+            display: none;
+        }
+    </style>
+
 
 </main>
-<script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
 <script src="/js/fjGallery.min.js"></script>
 <script src="/js/initGallery.js"></script>
+<script>
+
+var slider = document.querySelector('.slider');
+var sliderLoadedOnce = false;
+
+slider.addEventListener('scroll', function(e) {console.log("SCROLL EVENT", e)});
+
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+      console.log("slider shown = ", sliderShown);
+    if(slider.style.display === "flex"){
+        swapClass('hidden', 'shown', 'slider');
+    } else {
+        return;
+    }
+  }
+})
+
+function swapClass(addclassName, removeclassName, targetClass){
+    var targetElement = document.querySelector('.'+ targetClass);
+    targetElement.classList.remove(removeclassName);
+    targetElement.classList.add(addclassName);
+    console.log("Added class", addclassName, "to targetClass", targetClass);
+
+};
+
+function goToSlider(id){
+    location.href = '#' + id;
+
+    if(sliderLoadedOnce){
+        swapClass('shown','hidden', 'slider');
+    } else {
+        swapClass('shown','initiallyHidden', 'slider');
+        sliderLoadedOnce = true;
+    }
+    
+    console.log("go to #", id);
+}
+</script>
 
 <noscript>
     <style>

@@ -1,0 +1,15 @@
+Home
+
+Gallery
+    > Gallery of featured photos
+    > List of Albums/Film rolls
+        > gallery page filtered to event
+            > Individual photo page with breadcrumbs to albums and metadata + Caption (SHOULD THIS BE A LIGHTBOX??)
+    > List of Tags
+        > gallery page filtered to tag
+            > Individual photo page with breadcrumbs to tags and metadata + Caption (SHOULD THIS BE A LIGHTBOX??)
+Design
+    > Table of contents for portfolio projects
+        > One Page per project
+About
+ > Single page with photo of me and bio + contact information

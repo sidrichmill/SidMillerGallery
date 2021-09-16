@@ -4,6 +4,9 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy('./src/assets');
     eleventyConfig.addPassthroughCopy('./src/js');
 
+    // eleventyConfig.addNunjucksShortcode("slider", function(currentImage, imageList) { 
+
+    //  });
 
     eleventyConfig.addCollection("detailsCollection", function (collection) {
         // console.log(collection.getAll());

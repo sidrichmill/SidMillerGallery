@@ -4,6 +4,7 @@ let dpr = window.devicePixelRatio;
 let viewWidth = window.innerWidth*dpr;
 let rowHeight = Math.round((viewHeight/100)*40);
 let rowMax = Math.round(rowHeight * 1.4);
+let vertical = false;
 
 
 console.log("viewHeight", viewHeight , "viewWidth", viewWidth, "rowHeight", rowHeight, "rowMax", rowMax);
@@ -70,12 +71,12 @@ function initGallery(){
 // };
     
 
-function showImages(){
+function showImages(inputWidth){
     let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
 
     for(var box of boxes){showElement(box)};
 
-    let images = document.getElementsByTagName("img");
+    let images = document.querySelectorAll(".thumbnail-img");
     //console.log(images);
     for(var image of images){
         if(image.complete){
@@ -83,8 +84,14 @@ function showImages(){
         }else{
             image.addEventListener("load", (event) => showElement(event.target))
         }
+    if(inputWidth === undefined){
+        var imgWidth = Math.round(image.dataset.ratio * rowMax);
+        console.log(inputWidth, "typeof inputWidth is undefined");
+    } else {
+        var imgWidth = inputWidth;
+        console.log(inputWidth, "typeof inputWidth is not undefined");
+    }
     
-    var imgWidth = Math.round(image.dataset.ratio * rowMax);
     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidth + "/" +  image.dataset.slug;
     image.src = newSrc;
     };
@@ -105,5 +112,5 @@ function showElement(el){
         el.classList.remove("hidden");
 };
 
-if(viewWidth > 600){initGallery()} // else {initVertical()};
+if(viewWidth > 600){initGallery();} else {showImages(viewWidth);};
 

@@ -36,7 +36,7 @@ a {
 }
 
 :focus {
-  outline: 1px dotted currentColor;
+  outline: 2px dotted currentColor;
   outline-offset: 0.2rem;
 }
 
@@ -51,8 +51,18 @@ article {
   font-size: 1.25rem;
 }
 
+
 main:focus {
   outline: none;
+}
+
+img {
+  -webkit-user-drag: none; 
+  -khtml-user-drag: none; 
+  -moz-user-drag: none; 
+  -o-user-drag: none; 
+  user-drag: none; 
+  user-select: none;
 }
 
 @media (min-width: 40em) {
@@ -320,6 +330,7 @@ main:focus {
   max-width: none;
   list-style: none;
   overflow: hidden;
+  cursor: pointer;
 }
 
 /* prevent last element from stretching */
@@ -413,6 +424,7 @@ main:focus {
   .site-head__brand {
     width: 15rem;
     text-decoration: none;
+    overflow: hidden;
   }
 
 }
@@ -471,16 +483,27 @@ main:focus {
 }
 .fj-gallery-item{
   background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.gallery-item, .fj-gallery-item{
+  border: none;
+  padding: 0px;
 }
 
 .hidden{
-  opacity: 0;
+  /* opacity: 0; */
+  animation: fadeOutAnimation ease .3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  pointer-events: none;
 }
 
 .shown{
   animation: fadeInAnimation ease .3s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  pointer-events: all;
 }
 
 .removed{
@@ -501,8 +524,35 @@ main:focus {
 @keyframes fadeInAnimation {
 0% {
   opacity: 0;
+  display: none;
+  scroll-behavior: auto;
+}
+1% {
+  opacity: 0;
+  display: flex;
+  scroll-behavior: auto;
 }
 100% {
   opacity: 1;
+  display: flex;
+  scroll-behavior: smooth;
 } 
 }
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+    display: flex;
+    scroll-behavior: smooth;
+  }
+  99% {
+    opacity: 0;
+    display: flex;
+    scroll-behavior: smooth;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    scroll-behavior: auto;
+  } 
+  }
