@@ -1,8 +1,10 @@
 <div class="tagSelection">
-    <label for="tags">Choose another catagory:</label>
+    <label for="tags">Explore another:</label>
     <select name="tags" id="tags" onchange="location.assign(this.value)">
-        {% for tag in cloudinaryTags %}
-            <option value="/tags/{{ tag | slug }}/" {% if tag === cltag %}selected{% endif %}>{{ tag }}</option>
+        <option value="" selected>category</option>
+        {% for keyword in cloudinaryTags | sort() %}
+            <option value="/keywords/{{ keyword | slug }}/">{{ keyword }}</option>
+            {# <option value="/keywords/{{ keyword | slug }}/" {% if keyword === cltag %}selected{% endif %}>{{ keyword }}</option> #}
         {% endfor %}
     </select>
 </div>

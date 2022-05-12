@@ -13,3 +13,22 @@ Design
         > One Page per project
 About
  > Single page with photo of me and bio + contact information
+
+Collections:
+    - Roll Albums
+    - Tag Albums
+    - Images
+    - Tags
+    - People
+
+ Image has many Tags
+ Tags have many Images
+ Roll albums have many Images
+ Images have one Roll album
+ Tag albums have many images
+ Images have many tag albums
+ Tag Albums have one tag
+
+Capture Images > Store in initial album
+Edit images > Apply Tags > Export in Roll Album to be uploaded
+Parse Image Metadata and restructure as needed > Upload Roll album to Cloudinary

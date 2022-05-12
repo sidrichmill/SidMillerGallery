@@ -4,13 +4,31 @@ layout: 'base.njk'
 
 ---
 
-<main id="main-content" tabindex="-1" class="gallery-wrapper">
+<main id="main-content" tabindex="-1" class="featuredAlbums">
 
-<h2>Featured Gallery</h2> 
+<h2>Featured</h2>
 
-{% include "tagSelection.njk" %}
+{# {% include "tagSelection.njk" %} #}
 
+{% for tag in featuredAlbums %}
+<a href="/keywords/{{ tag | slug }}/">
+    <h3>{{ tag | capitalize }}</h3>
+</a>
+<ul class="featuredSlider">
+    {% for image in cloudinaryImages %}
+        {% if tag in image.keywords %}
+            <li class="sliderItem">
+                <a class="imageLink" href="/gallery/{{ image.name | slug }}#imageWrapper">
+                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_400/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+    
+{% endfor %}
 
+{# 
     <div class="fj-gallery">
         {% for image in cloudinaryImages %}
             {% for tag in image.tags %}
@@ -23,8 +41,7 @@ layout: 'base.njk'
                 {% endif %} 
             {% endfor %}
         {% endfor %}
-        
-    </div>
+    </div> #}
 
 </main>
 

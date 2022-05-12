@@ -1,0 +1,59 @@
+---
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryImages
+  size: 1
+  alias: image
+permalink: "gallery/{{ image.name | slug }}/index.html"
+
+---
+
+<div class="container">
+    <div class="image-wrapper" id="imageWrapper">
+        <img class="hero-image" src="{{ cloudinary.baseUrl }}{{ image.urlSlug }}" alt="placeholder image alt" height="{{ image.height }}" width="{{ image.width }}">
+    </div>
+    
+    <div class="tag-list">
+        <h3>Details</h3>
+            <ul>
+                <li>Camera: <a href="/camera/{{ image.camera | slug }}">{{ image.camera }}</a></li>
+                <li>Lens: <a href="/lens/{{ image.lens | slug }}">{{ image.lens }}</a></li>
+                <li>Film: <a href="/film/{{ image.film | slug }}">{{ image.film }}</a></li>
+                <li>Album: <a href="/albums/{{ image.album | slug }}">{{ image.album }}</a></li>
+
+                {% if image.people.length > 0 %} 
+                <li>People:
+                    <ul> 
+                        {% for person in image.people %}
+                            <li><a href="/people/{{ person | slug }}">{{ person }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+                {% if image.keywords.length > 0 %}
+                    <li>Tags:
+                        <ul>
+                            {% for keyword in image.keywords %}
+                                <li><a href="/keywords/{{ keyword | slug }}">{{ keyword }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                
+                {# {% for keyword in image.keywords %}
+                    <li class="tag-item"><a href="/keywords/{{ keyword | slug }}">{{ keyword }}</a></li>
+                {% endfor %} #}
+            </ul>
+    </div>
+</div>
+
+<style>
+body{
+    max-height: 100vh;
+}
+    .tag-list > ul{
+        list-style-type: none;
+        padding-inline-start: 1rem;
+    }
+</style>

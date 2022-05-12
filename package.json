@@ -9,13 +9,15 @@
     "node-iptc": "^1.0.5"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "dotenv": "^10.0.0"
+    "@11ty/eleventy": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "fs": "^0.0.1-security"
   },
   "scripts": {
-    "start": "eleventy --serve",
-    "build": "eleventy",
-    "uploadImages": "node src/_utility/cloudinaryUpload.js"
+    "start": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy",
+    "uploadImages": "node build/cloudinaryUpload.js",
+    "cacheImageData": "node build/cacheCloudinaryImages.js"
   },
   "keywords": [],
   "author": "",

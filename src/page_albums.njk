@@ -1,0 +1,60 @@
+---
+
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryRolls
+  size: 1
+  alias: clroll
+permalink: /albums/{{ clroll | slug }}/
+
+---
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+
+<h2>{{ clroll }}</h2> 
+
+    <div class="gallery">
+        {% for image in cloudinaryImages | sort(attribute="name") %}
+                {% if clroll == image.album %}
+                    
+                        {% if image.width > image.height * 2 %}
+                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.name | slug }}">
+                        {% elif image.width > image.height %}
+                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.name | slug }}">
+                        {% elif image.width < image.height %}
+                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.name | slug }}">
+                        {% endif %}
+                        
+                            <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                        </a>
+                    
+                {% endif %} 
+        {% endfor %}
+        
+    </div>
+
+</main>
+<script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
+<script src="/js/fjGallery.min.js"></script>
+<script src="/js/initGallery.js"></script>
+
+<noscript>
+    <style>
+        .hidden{
+            opacity: 1
+        }
+        .fj-gallery{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1vw;
+        }
+        .fj-gallery-item{
+            flex: 1 0 25vw;
+            background-color: transparent;
+        }
+    </style>
+
+</noscript>
+

@@ -1,42 +1,49 @@
 //let viewHeight = window.innerHeight;
 let viewHeight = document.documentElement.clientHeight;
 let dpr = window.devicePixelRatio;
-let viewWidth = window.innerWidth*dpr;
-let rowHeight = Math.round((viewHeight/100)*40);
+let viewWidth = window.innerWidth * dpr;
+let rowHeight = Math.round((viewHeight / 100) * 40);
 let rowMax = Math.round(rowHeight * 1.4);
 let vertical = false;
 
-
-console.log("viewHeight", viewHeight , "viewWidth", viewWidth, "rowHeight", rowHeight, "rowMax", rowMax);
+console.log(
+  "viewHeight",
+  viewHeight,
+  "viewWidth",
+  viewWidth,
+  "rowHeight",
+  rowHeight,
+  "rowMax",
+  rowMax
+);
 
 var baseURL = "https://res.cloudinary.com/sid-miller-design/";
 
-function initGallery(){
-    // if js is enabled & >600px gallery is changed to .fj-gallery
-    var gallery = document.querySelector('.gallery');
-        gallery.classList.add("fj-gallery");
-        gallery.classList.remove("gallery");
-     // get all gallery items and change them to fj-gallery-items
-    var galleryItems = document.querySelectorAll('.gallery-item');
-    for(var item of galleryItems){
-        item.classList.add("fj-gallery-item");
-        item.classList.remove("gallery-item", "landscape", "portrait", "panoramic");
-    };
-    // get all images and add their width and height attribute
-    let images = document.getElementsByTagName("img");
-    for(var image of images){
-        image.width = image.dataset.width;
-        image.height = image.dataset.height;
-    };
-    // initialize fj-gallery
-    let fjgallery = fjGallery(document.querySelectorAll('.fj-gallery'), {
-        itemSelector: '.fj-gallery-item',
-        rowHeight: rowHeight,
-        onJustify: showImages()
-    });
+function initGallery() {
+  // if js is enabled & >600px gallery is changed to .fj-gallery
+  var gallery = document.querySelector(".gallery");
+  gallery.classList.add("fj-gallery");
+  gallery.classList.remove("gallery");
+  // get all gallery items and change them to fj-gallery-items
+  var galleryItems = document.querySelectorAll(".gallery-item");
+  for (var item of galleryItems) {
+    item.classList.add("fj-gallery-item");
+    item.classList.remove("gallery-item", "landscape", "portrait", "panoramic");
+  }
+  // get all images and add their width and height attribute
+  let images = document.getElementsByTagName("img");
+  for (var image of images) {
+    image.width = image.dataset.width;
+    image.height = image.dataset.height;
+  }
+  // initialize fj-gallery
+  let fjgallery = fjGallery(document.querySelectorAll(".fj-gallery"), {
+    itemSelector: ".fj-gallery-item",
+    rowHeight: rowHeight,
+    onJustify: showImages(),
+  });
 
-    console.log("initGallery has run");
-
+  console.log("initGallery has run");
 }
 
 // function initVertical(){
@@ -64,39 +71,43 @@ function initGallery(){
 //         }else{
 //             image.addEventListener("load", (event) => showElement(event.target))
 //         }
-    
+
 //     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidthVert + "/" +  image.dataset.slug;
 //     image.src = newSrc;
 //     };
 // };
-    
 
-function showImages(inputWidth){
-    let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
+function showImages(inputWidth) {
+  let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
 
-    for(var box of boxes){showElement(box)};
+  for (var box of boxes) {
+    showElement(box);
+  }
 
-    let images = document.querySelectorAll(".thumbnail-img");
-    //console.log(images);
-    for(var image of images){
-        if(image.complete){
-            showElement(image);
-        }else{
-            image.addEventListener("load", (event) => showElement(event.target))
-        }
-    if(inputWidth === undefined){
-        var imgWidth = Math.round(image.dataset.ratio * rowMax);
-        console.log(inputWidth, "typeof inputWidth is undefined");
+  let images = document.querySelectorAll(".thumbnail-img");
+  //console.log(images);
+  for (var image of images) {
+    image.width = image.dataset.width;
+    image.height = image.dataset.height;
+    image.addEventListener("error", (event) => console.log(event));
+    if (inputWidth === undefined) {
+      var imgWidth = Math.round(image.dataset.ratio * rowMax);
+      console.log(inputWidth, "inputWidth is undefined");
     } else {
-        var imgWidth = inputWidth;
-        console.log(inputWidth, "typeof inputWidth is not undefined");
+      var imgWidth = inputWidth;
+      console.log(inputWidth, "inputWidth is defined");
     }
-    
-    var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidth + "/" +  image.dataset.slug;
+
+    var newSrc = baseURL + "c_scale,w_" + imgWidth + "/" + image.dataset.slug;
     image.src = newSrc;
-    };
-    
-};
+
+    if (image.complete) {
+      showElement(image);
+    } else {
+      image.addEventListener("load", (event) => showElement(event.target));
+    }
+  }
+}
 
 // function swapSrc(el, columnWidth){
 
@@ -106,11 +117,18 @@ function showImages(inputWidth){
 
 // };
 
-function showElement(el){
-    //console.log("Show", el)
-        el.classList.add("shown");
-        el.classList.remove("hidden");
-};
+function showElement(el) {
+  //console.log("Show", el)
+  el.classList.add("shown");
+  el.classList.remove("hidden");
+}
 
-if(viewWidth > 600){initGallery();} else {showImages(viewWidth);};
+function hideElement(el) {}
 
+if (viewWidth / dpr > 900) {
+  initGallery();
+  console.log("fjGallery started");
+} else {
+  showImages(viewWidth);
+  console.log("fjGallery NOT started");
+}

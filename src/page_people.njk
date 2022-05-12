@@ -1,0 +1,73 @@
+---
+
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryNames
+  size: 1
+  alias: clname
+permalink: /people/{{ clname | slug }}/
+
+---
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+
+<h2>{{ clname }}</h2> 
+
+<div class="tagSelection">
+    <label for="tags">Choose another:</label>
+    <select name="tags" id="tags" onchange="location.assign(this.value)">
+        {% for name in cloudinaryNames %}
+            <option value="/people/{{ name | slug }}/" {% if name === clname %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+    <div class="gallery">
+        {% for image in cloudinaryImages %}
+            {% for person in image.people %}
+                {% if clname === person %}
+                    {% if loop.index0 < 50 %}
+                        {% if image.width > image.height * 2 %}
+                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.name | slug }}">
+                        {% elif image.width > image.height %}
+                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.name | slug }}">
+                        {% elif image.width < image.height %}
+                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.name | slug }}">
+                        {% endif %}
+                    
+                            <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                        </a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+                 
+
+        {% endfor %}
+        
+    </div>
+
+</main>
+<script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
+<script src="/js/fjGallery.min.js"></script>
+<script src="/js/initGallery.js"></script>
+
+<noscript>
+    <style>
+        .hidden{
+            opacity: 1
+        }
+        .fj-gallery{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1vw;
+        }
+        .fj-gallery-item{
+            flex: 1 0 25vw;
+            background-color: transparent;
+        }
+    </style>
+
+</noscript>
+

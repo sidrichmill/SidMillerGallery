@@ -1,0 +1,25 @@
+---
+
+layout: 'base.njk'
+
+pagination:
+  data: cloudinaryFolders
+  size: 10
+  alias: folder
+
+---
+
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+<H2>Albums</H2>
+<ul>
+    {% for item in folder %}
+        <li>{{ item.name }}
+            <ul>
+                <a href="/albums/{{ item.name | slug }}">
+                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ item.files[12].urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                </a>
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+</main>

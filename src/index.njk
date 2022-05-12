@@ -9,22 +9,109 @@ layout: 'base.njk'
 <main id="main-content" tabindex="-1" class="wrapper">
     <article class="post flow">
 
+{% for tag in featuredAlbums %}
+<a href="/keywords/{{ tag | slug }}/">
+    <h3>{{ tag | capitalize }}</h3>
+</a>
+<ul class="featuredSlider" id="{{loop.index}}">
+    {% set count = 0 %}
+    {% for image in cloudinaryImages %}
+        {% if tag in image.keywords %}
+            {% set count = count + 1 %}
+            <li class="sliderItem" id="item-{{ count }}">
+                <a class="imageLink" href="/gallery/{{ image.name | slug }}">
+                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_400/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+    
+{% endfor %}
 
-        <h2>Welcome</h2>
-<ul>
-
-
-        {% for folder in cloudinaryFolders %}
-            <a href="#">{{ folder.name }}</a>
-
-            -
-
-            {% for image in folder.files %}
-                <li>{{ image.name }}</li>
-            {% endfor %}
-            <li></li>
-        {% endfor %}
 </ul>
 
     </article>
 </main>
+
+<style>
+    .featuredSlider{
+        display: flex;
+        flex-wrap: nowrap;
+        list-style-type: none;
+        gap: .5rem;
+        cursor: grab;
+        overflow-x: scroll;
+        min-height: 30vh;
+        {# scroll-snap-type: inline mandatory; #}
+        padding-inline-start: 0;
+    }
+
+    .featuredSlider > * {
+        flex-shrink: 0;
+        {# scroll-snap-align: start; #}
+    }
+
+
+</style>
+
+<script>
+    const sliders = document.querySelectorAll('.featuredSlider')
+    //const slider = document.querySelector('.featuredSlider')
+    
+
+
+for(let slider of sliders){
+    const images = slider.getElementsByTagName('img');
+    console.log("🚀 ~ file: index.njk ~ line 72 ~ slider", slider)
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let walk;
+
+    slider.addEventListener('mousedown', (e) => {
+    console.log("mousedown", e.target)
+    isDown = true;
+    slider.classList.add('active');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    walk = 0;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mouseup', (e) => {
+    
+    isDown = false;
+    slider.classList.remove('active');
+    });
+
+
+    slider.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    walk = (x - startX) * 2; //scroll-fast
+    slider.scrollLeft = scrollLeft - walk;
+    //console.log(walk);
+    });
+
+    for(var image of images){
+    image.addEventListener('click', (e)=>{
+        console.log("click", e.target)
+        console.log("walk", walk)
+    if(walk > 10 || walk < -10){
+        console.log(walk, e.target)
+        e.preventDefault();
+    }
+    }) 
+    }
+}
+   
+
+
+
+</script>

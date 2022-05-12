@@ -3,30 +3,38 @@
 layout: 'base.njk'
 
 pagination:
-  data: cloudinaryTags
+  data: cloudinaryCameras
   size: 1
-  alias: cltag
-permalink: /tags/{{ cltag | slug }}/
-
+  alias: clcamera
+permalink: /camera/{{ clcamera | slug }}/
 ---
 
 <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-<h2>{{ cltag }}</h2> 
+<h2>{{ clcamera }}</h2> 
 
-{% include "tagSelection.njk" %}
+<div class="tagSelection">
+    <label for="tags">Explore another:</label>
+    <select name="tags" id="tags" onchange="location.assign(this.value)">
+        <option value="" selected>camera</option>
+        {% for camera in cloudinaryCameras | sort() %}
+            <option value="/camera/{{ camera | slug }}/">{{ camera }}</option>
+            {# <option value="/film/{{ film | slug }}/" {% if film === clfilm %}selected{% endif %}>{{ film }}</option> #}
+        {% endfor %}
+    </select>
+</div>
 
     <div class="gallery">
+        {% set shuffledImages = cloudinaryImages | shuffle %}
         {% for image in cloudinaryImages %}
-            {% for tag in image.tags %}
-                {% if cltag === tag %}
-                    {% if loop.index0 < 24 %}
+                {% if clcamera === image.camera %}
+                    {% if loop.index0 < 100 %}
                         {% if image.width > image.height * 2 %}
-                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.name | slug }}">
                         {% elif image.width > image.height %}
-                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.name | slug }}">
                         {% elif image.width < image.height %}
-                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.file | slug }}#imageWrapper">
+                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.name | slug }}">
                         {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
@@ -34,7 +42,6 @@ permalink: /tags/{{ cltag | slug }}/
                         </a>
                     {% endif %}
                 {% endif %} 
-            {% endfor %}
         {% endfor %}
         
     </div>
