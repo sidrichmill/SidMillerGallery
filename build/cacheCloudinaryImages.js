@@ -7,7 +7,7 @@ const path = require("path");
 var fs = require("fs");
 
 var imagecachePath = "./src/_data/cloudinaryImages.json";
-var keywordcachePath = "./src/_data/cloudinarykeywords.json";
+var keywordcachePath = "./src/_data/cloudinaryTags.json";
 var cameracachePath = "./src/_data/cloudinaryCameras.json";
 var lenscachePath = "./src/_data/cloudinaryLenses.json";
 var filmcachePath = "./src/_data/cloudinaryFilms.json";
