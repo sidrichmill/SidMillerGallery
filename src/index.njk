@@ -20,7 +20,7 @@ layout: 'base.njk'
             {% set count = count + 1 %}
             <li class="sliderItem" id="item-{{ count }}">
                 <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_400/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                 </a>
             </li>
         {% endif %}
@@ -42,7 +42,7 @@ layout: 'base.njk'
         gap: .5rem;
         cursor: grab;
         overflow-x: scroll;
-        min-height: 30vh;
+        height: 40vh;
         {# scroll-snap-type: inline mandatory; #}
         padding-inline-start: 0;
     }
