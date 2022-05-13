@@ -1,4 +1,18 @@
 ---
+layout: 'gallery.njk'
+subdirectory: 'film'
+attribute: 'film'
+randomized: true
+
+pagination:
+  data: cloudinaryFilms
+  size: 1
+  alias: clfilm
+
+permalink: "/{{ subdirectory }}/{{ clfilm | slug }}/"
+---
+
+---
 
 layout: 'base.njk'
 
@@ -13,16 +27,8 @@ permalink: /film/{{ clfilm | slug }}/
 
 <h2>{{ clfilm }}</h2> 
 
-<div class="tagSelection">
-    <label for="tags">Explore another:</label>
-    <select name="tags" id="tags" onchange="location.assign(this.value)">
-        <option value="" selected>film</option>
-        {% for film in cloudinaryFilms | sort() %}
-            <option value="/film/{{ film | slug }}/">{{ film }}</option>
-            {# <option value="/film/{{ film | slug }}/" {% if film === clfilm %}selected{% endif %}>{{ film }}</option> #}
-        {% endfor %}
-    </select>
-</div>
+{% from "macro/tagSelection.njk" import tagSelector %}
+{{ tagSelector(cloudinaryFilms, "film", "film") }}
 
     <div class="gallery">
         {% set shuffledImages = cloudinaryImages | shuffle %}

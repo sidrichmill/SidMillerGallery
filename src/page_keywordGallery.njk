@@ -1,4 +1,17 @@
 ---
+layout: 'gallery.njk'
+subdirectory: 'keywords'
+attribute: 'keywords'
+randomized: true
+
+pagination:
+  data: cloudinaryTags
+  size: 1
+  alias: cltag
+
+permalink: "/{{ subdirectory }}/{{ cltag | slug }}/"
+---
+{# ---
 
 layout: 'base.njk'
 
@@ -7,38 +20,35 @@ pagination:
   size: 1
   alias: cltag
 permalink: /keywords/{{ cltag | slug }}/
----
+--- #}
 
-<main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-<h2>{{ cltag }}</h2> 
+{# <main id="main-content" tabindex="-1" class="gallery-wrapper">
 
-{% include "tagSelection.njk" %}
+<h2>{{ cltag }}</h2>  #}
 
-    <div class="gallery">
+{# {% include "tagSelection.njk" %} #}
+{# {% from "macro/tagSelection.njk" import tagSelector %}
+{{ tagSelector(cloudinaryTags, "keywords") }}
+
+{% from "macro/fjGallery.njk" import fjGallery %}
+{{ fjGallery(cloudinaryImages, cltag, "keywords", false) }} #}
+
+    {# <div class="gallery">
         {% set shuffledImages = cloudinaryImages | shuffle %}
         {% for image in shuffledImages %}
             {% for keyword in image.keywords %}
                 {% if cltag === keyword %}
-                        {% if image.width > image.height * 2 %}
-                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.name | slug }}">
-                        {% elif image.width > image.height %}
-                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.name | slug }}">
-                        {% elif image.width < image.height %}
-                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.name | slug }}">
-                        {% endif %}
-                        
+                        <a class="gallery-item {% if image.width > image.height * 2 %} panoramic{% elif image.width > image.height %} landscape{% elif image.width < image.height %} portrait{% endif %} hidden" href="/gallery/{{ image.name | slug }}">
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
                         </a>
                 {% endif %} 
             {% endfor %}
-        {% endfor %}
-        
-    </div>
+        {% endfor %}        
+    </div> #}
 
 </main>
-<script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
+{# <script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
 <script src="/js/fjGallery.min.js"></script>
 <script src="/js/initGallery.js"></script>
 
@@ -58,5 +68,5 @@ permalink: /keywords/{{ cltag | slug }}/
         }
     </style>
 
-</noscript>
+</noscript> #}
 

@@ -1,0 +1,15 @@
+---
+
+layout: 'base.njk'
+
+---
+{# {{ pagination | dump }} #}
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+<h2>{{ pagination.items[0] }}</h2> 
+{% from "macro/tagSelection.njk" import tagSelector %}
+{{ tagSelector( pagination.pages , subdirectory) }}
+
+{% from "macro/fjGallery.njk" import fjGallery %}
+{{ fjGallery(cloudinaryImages, pagination.items[0], attribute, randomize) }}
+
+</main>

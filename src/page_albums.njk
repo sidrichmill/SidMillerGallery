@@ -1,4 +1,18 @@
 ---
+layout: 'gallery.njk'
+subdirectory: 'albums'
+attribute: 'album'
+randomized: false
+
+pagination:
+  data: cloudinaryRolls
+  size: 1
+  alias: clroll
+
+permalink: "/{{ subdirectory }}/{{ clroll | slug }}/"
+---
+
+{# ---
 
 layout: 'base.njk'
 
@@ -27,7 +41,7 @@ permalink: /albums/{{ clroll | slug }}/
                         {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                            
                         </a>
                     
                 {% endif %} 
@@ -56,5 +70,5 @@ permalink: /albums/{{ clroll | slug }}/
         }
     </style>
 
-</noscript>
+</noscript> #}
 

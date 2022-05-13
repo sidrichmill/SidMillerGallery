@@ -1,4 +1,19 @@
 ---
+layout: 'gallery.njk'
+subdirectory: 'people'
+attribute: 'people'
+randomized: true
+
+pagination:
+  data: cloudinaryNames
+  size: 1
+  alias: clname
+
+permalink: "/{{ subdirectory }}/{{ clname | slug }}/"
+---
+
+{# 
+---
 
 layout: 'base.njk'
 
@@ -14,30 +29,17 @@ permalink: /people/{{ clname | slug }}/
 
 <h2>{{ clname }}</h2> 
 
-<div class="tagSelection">
-    <label for="tags">Choose another:</label>
-    <select name="tags" id="tags" onchange="location.assign(this.value)">
-        {% for name in cloudinaryNames %}
-            <option value="/people/{{ name | slug }}/" {% if name === clname %}selected{% endif %}>{{ name }}</option>
-        {% endfor %}
-    </select>
-</div>
+{% from "macro/tagSelection.njk" import tagSelector %}
+{{ tagSelector(cloudinaryNames, "people", "person") }}
 
     <div class="gallery">
         {% for image in cloudinaryImages %}
             {% for person in image.people %}
                 {% if clname === person %}
                     {% if loop.index0 < 50 %}
-                        {% if image.width > image.height * 2 %}
-                            <a class="gallery-item panoramic hidden" href="/gallery/{{ image.name | slug }}">
-                        {% elif image.width > image.height %}
-                            <a class="gallery-item landscape hidden" href="/gallery/{{ image.name | slug }}">
-                        {% elif image.width < image.height %}
-                            <a class="gallery-item portrait hidden" href="/gallery/{{ image.name | slug }}">
-                        {% endif %}
-                    
+                        <a class="gallery-item {% if image.width > image.height * 2 %} panoramic{% elif image.width > image.height %} landscape{% elif image.width < image.height %} portrait{% endif %} hidden" href="/gallery/{{ image.name | slug }}">
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                            
                         </a>
                     {% endif %}
                 {% endif %}
@@ -69,5 +71,5 @@ permalink: /people/{{ clname | slug }}/
         }
     </style>
 
-</noscript>
+</noscript> #}
 

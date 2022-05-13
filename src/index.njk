@@ -18,15 +18,21 @@ layout: 'base.njk'
     {% for image in cloudinaryImages %}
         {% if tag in image.keywords %}
             {% set count = count + 1 %}
-            <li class="sliderItem" id="item-{{ count }}">
+            <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
                 <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                    <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                 </a>
             </li>
         {% endif %}
     {% endfor %}
 </ul>
-    
+    {# {% if image.width > image.height * 2 %}
+                            panoramic
+                        {% elif image.width > image.height %}
+                            landscape
+                        {% elif image.width < image.height %}
+                            portrait
+                        {% endif %} #}
 {% endfor %}
 
 </ul>
@@ -53,13 +59,21 @@ layout: 'base.njk'
     }
 
     .sliderItem {
-        max-width: 100%;
-    }
-
-    .featureSlider img {
         height: 100%;
     }
 
+    .sliderImg {
+        height: 100%;
+        max-height: 100%;
+        min-width: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 750px){
+        .panoramicItem{
+            display: none;
+        }
+    }
 
 </style>
 

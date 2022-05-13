@@ -1,0 +1,13 @@
+{% macro tagSelector(dataSource, slug, default="option") %}
+    <div class="tagSelection">
+        <label for="tags">Explore another:</label>
+        <select name="tags" id="tags" onchange="location.assign(this.value)">
+            <option value="" selected>{{ default }}</option>
+            {% for keyword in dataSource | sort() %}
+                <option value="/{{ slug }}/{{ keyword | slug }}/">{{ keyword }}</option>
+                {# <option value="/keywords/{{ keyword | slug }}/" {% if keyword === cltag %}selected{% endif %}>{{ keyword }}</option> #}
+            {% endfor %}
+        </select>
+    </div>
+{% endmacro %}
+

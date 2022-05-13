@@ -1,4 +1,18 @@
 ---
+layout: 'gallery.njk'
+subdirectory: 'lens'
+attribute: 'lens'
+randomized: true
+
+pagination:
+  data: cloudinaryLenses
+  size: 1
+  alias: cllens
+
+permalink: "/{{ subdirectory }}/{{ cllens | slug }}/"
+---
+{# 
+---
 
 layout: 'base.njk'
 
@@ -13,14 +27,9 @@ permalink: /lens/{{ cllens | slug }}/
 
 <h2>{{ cllens }}</h2> 
 
-<div class="tagSelection">
-    <label for="tags">Choose another:</label>
-    <select name="tags" id="tags" onchange="location.assign(this.value)">
-        {% for lens in cloudinaryLenses %}
-            <option value="/lens/{{ lens | slug }}/" {% if lens === cllens %}selected{% endif %}>{{ lens }}</option>
-        {% endfor %}
-    </select>
-</div>
+{% from "macro/tagSelection.njk" import tagSelector %}
+
+{{ tagSelector(cloudinaryLenses, "lenses", "lens") }}
 
     <div class="gallery">
         {% set shuffledImages = cloudinaryImages | shuffle %}
@@ -36,7 +45,7 @@ permalink: /lens/{{ cllens | slug }}/
                         {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                            
                         </a>
                     {% endif %}
                 {% endif %} 
@@ -65,5 +74,5 @@ permalink: /lens/{{ cllens | slug }}/
         }
     </style>
 
-</noscript>
+</noscript> #}
 

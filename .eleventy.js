@@ -26,6 +26,10 @@ module.exports = function (eleventyConfig) {
     return shuffle(array);
   });
 
+  eleventyConfig.addFilter("typeof", function (object) {
+    return typeof object;
+  });
+
   return {
     dir: {
       input: "src",
