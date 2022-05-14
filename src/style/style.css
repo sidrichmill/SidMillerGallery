@@ -5,7 +5,7 @@
   --color-light: hsl(0, 0%, 100%);
   --color-light-shade: hsl(156, 100%, 99%);
   --color-dark: hsl(178, 73%, 9%);
-  --color-primary: hsl(var(--color-hue), 50%, var(--primary-lightness));
+  --color-primary: hsl(var(--color-hue), 55%, var(--primary-lightness));
   --color-primary-shade: hsl(var(--color-hue), 50%, calc(var(--primary-lightness) - var(--darken-percentage)));
 }
 
