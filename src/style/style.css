@@ -1,11 +1,11 @@
 :root {
-  --color-hue: 200;
-  --primary-lightness: 40%;
+  --color-hue: 25;
+  --primary-lightness: 50%;
   --darken-percentage: 10%;
   --color-light: hsl(0, 0%, 100%);
   --color-light-shade: hsl(156, 100%, 99%);
   --color-dark: hsl(178, 73%, 9%);
-  --color-primary: hsl(var(--color-hue), 40%, var(--primary-lightness));
+  --color-primary: hsl(var(--color-hue), 50%, var(--primary-lightness));
   --color-primary-shade: hsl(var(--color-hue), 50%, calc(var(--primary-lightness) - var(--darken-percentage)));
 }
 
