@@ -5,13 +5,13 @@ layout: 'base.njk'
 {# <img src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt=""> #}
 <div class="container">
     <div class="image-wrapper bioImage-wrapper" id="imageWrapper">
-        <div class="backgroundImage"><img class="hero-image hover-fade" src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt="Sid Miller standing against a leafy background" height="{{ image.height }}" width="{{ image.width }}"></div>
+        <div class="backgroundImage"><img class="hero-image hover-fade bio-image" src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt="Sid Miller standing against a leafy background" height="{{ image.height }}" width="{{ image.width }}"></div>
     </div>
     
     <div class="tag-list bioText">
         <h3>Sid Miller</h3> <i>he/him</i> 
-        <p>is an Industrial Designer, maker, (film) photographer, dungeon master, woodworker, tech-nerd, list-lover, and dog dad.</p>
-        <ul>
+        <p>is an industrial designer, maker, (film) photographer, dog dad, dungeon master, woodworker, tech-nerd, and list-lover.</p>
+        <ul id="bio-link-list">
             <li><a href="https://www.instagram.com/sid.mill/">Instagram</a></li>
             <li><a href="https://www.linkedin.com/in/sidmillerdesign/">LinkedIn</a></li>
             <li><a href="/assets/SidMillerResume2021.pdf">Resume</a></li>
@@ -30,9 +30,14 @@ layout: 'base.njk'
         opacity: 1;
         transition: all 500ms ease-in;
     }
-
+    
     .hover-fade:hover{
         opacity: 0;
+    }
+
+    .bio-image{
+        height: auto;
+        max-height: 100%;
     }
 
     .backgroundImage{
@@ -47,6 +52,14 @@ layout: 'base.njk'
         margin: 0 auto;
     }
 
+    #bio-link-list{
+        display: flex;
+        justify-content: space-evenly;
+        padding-inline-start: 0;
+    }
+    .bioText a {
+        font-weight: 600;
+    }
     .bioImage-wrapper{
         display: flex;
         justify-content: center
