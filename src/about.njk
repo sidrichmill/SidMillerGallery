@@ -16,7 +16,7 @@ layout: 'base.njk'
             <li><a href="https://www.linkedin.com/in/sidmillerdesign/">LinkedIn</a></li>
             <li><a href="/assets/SidMillerResume2021.pdf">Resume</a></li>
         </ul>
-        <p>This site was built using <a href="http://www.11ty.dev">11ty</a>, <a href="http://www.cloudinary.com">Cloudinary</a>, and <a href="https://www.netlify.com">Netlify</a>. It is a personal experiment in archiving and presenting analog photos with all of their metadata. The source is avalible on <a href="https://github.com/sidrichmill/SidMillerGallery">Github</a>, but I'm warning you...it's not pretty.</p>
+        <p>This site is a personal experiment in archiving and presenting analog photos with all of their metadata. It was built using <a href="http://www.11ty.dev">11ty</a>, <a href="http://www.cloudinary.com">Cloudinary</a>, and <a href="https://www.netlify.com">Netlify</a>. The source is avalible on <a href="https://github.com/sidrichmill/SidMillerGallery">Github</a>, but I warn you...it's not pretty.</p>
     </div>
 {# <main id="main-content" tabindex="-1" class="gallery-wrapper">
     <div class="bioContainer">
@@ -28,7 +28,11 @@ layout: 'base.njk'
 <style>
     .hover-fade{
         opacity: 1;
-        transition: all 500ms ease-in;
+        transition: all 500ms ease;
+        animation-duration: 1000ms;
+        animation-name: pulse;
+        animation-iteration-count: 2;
+        animation-delay: 500ms;
     }
     
     .hover-fade:hover{
@@ -63,6 +67,20 @@ layout: 'base.njk'
     .bioImage-wrapper{
         display: flex;
         justify-content: center
+    }
+
+    @keyframes pulse {
+        from{
+            opacity: 1;
+        }
+
+        25%{
+            opacity: .6;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 
 </style>
