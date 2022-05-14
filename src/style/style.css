@@ -476,6 +476,11 @@ img {
   align-self: flex-end;
 }
 
+.tag-list > ul{
+  list-style-type: none;
+  padding-inline-start: 1rem;
+}
+
 @media (orientation: portrait) {
   /* .container {
     height: auto;

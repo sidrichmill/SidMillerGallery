@@ -1,0 +1,1 @@
+<p>This site was built using <a href="http://www.11ty.dev">11ty</a>, <a href="http://www.cloudinary.com">Cloudinary</a>, and <a href="https://www.netlify.com">Netlify</a>. It is a personal experiment in archiving and presenting analog photos with all of their metadata. The source is avalible here, but I'm warning you...it's not pretty.</p>

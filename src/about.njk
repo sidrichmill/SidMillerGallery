@@ -2,5 +2,55 @@
 layout: 'base.njk'
 ---
 
-<img src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt="">
-<img src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_shown.jpg" alt="Sid Miller standing against a leafy background">
+{# <img src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt=""> #}
+<div class="container">
+    <div class="image-wrapper bioImage-wrapper" id="imageWrapper">
+        <div class="backgroundImage"><img class="hero-image hover-fade" src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt="Sid Miller standing against a leafy background" height="{{ image.height }}" width="{{ image.width }}"></div>
+    </div>
+    
+    <div class="tag-list bioText">
+        <h3>Sid Miller</h3> <i>he/him</i> 
+        <p>is an Industrial Designer, maker, (film) photographer, dungeon master, woodworker, tech-nerd, list-lover, and dog dad.</p>
+        <ul>
+            <li><a href="https://www.instagram.com/sid.mill/">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/sidmillerdesign/">LinkedIn</a></li>
+            <li><a href="/assets/SidMillerResume2021.pdf">Resume</a></li>
+        </ul>
+        <p>This site was built using <a href="http://www.11ty.dev">11ty</a>, <a href="http://www.cloudinary.com">Cloudinary</a>, and <a href="https://www.netlify.com">Netlify</a>. It is a personal experiment in archiving and presenting analog photos with all of their metadata. The source is avalible on <a href="https://github.com/sidrichmill/SidMillerGallery">Github</a>, but I'm warning you...it's not pretty.</p>
+    </div>
+{# <main id="main-content" tabindex="-1" class="gallery-wrapper">
+    <div class="bioContainer">
+        <div class="bioImage"><img src="https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_hidden.jpg" alt="Sid Miller standing against a leafy background"></div>
+ https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_shown.jpg 
+        <div class="bioText"></div>
+    </div> #}
+
+<style>
+    .hover-fade{
+        opacity: 1;
+        transition: all 500ms ease-in;
+    }
+
+    .hover-fade:hover{
+        opacity: 0;
+    }
+
+    .backgroundImage{
+        height: 100%;
+        background-image:url("https://res.cloudinary.com/sid-miller-design/image/upload/v1652483201/SidMiller_shown.jpg");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .bioText{
+        flex-basis: 38ch;
+        margin: 0 auto;
+    }
+
+    .bioImage-wrapper{
+        display: flex;
+        justify-content: center
+    }
+
+</style>
+</main>
