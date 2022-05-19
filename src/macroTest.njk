@@ -1,11 +1,72 @@
+---
+
+layout: 'base.njk'
+
+---
+
+{% from "macro/imageSlider.njk" import imageSlider %}
+
+<main id="main-content" tabindex="-1" class="wrapper">
+
+    {% for tag in featuredAlbums %}
+        {{ imageSlider(cloudinaryImages, tag, "keywords", false) }}
+    {% endfor %}
+    
+</main>
+
+<script>
+    const sliders = document.querySelectorAll('.featuredSlider')
+        //const slider = document.querySelector('.featuredSlider')
+        
 
 
+    for(let slider of sliders){
+        const images = slider.getElementsByTagName('img');
+        console.log("🚀 ~ file: index.njk ~ line 72 ~ slider", slider)
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let walk;
 
-{# permalink: /keywords/{{ cltag | slug }}/ #}
+        slider.addEventListener('mousedown', (e) => {
+        console.log("mousedown", e.target)
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+        walk = 0;
+        });
 
-{# {% from "macro/tagSelection.njk" import tagSelector %}
-{% from "macro/fjGallery.njk" import fjGallery %}
+        slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+        });
 
-{{ tagSelector(cloudinaryTags, "keywords") }}
+        slider.addEventListener('mouseup', (e) => {
+        
+        isDown = false;
+        slider.classList.remove('active');
+        });
 
-{{ fjGallery(cloudinaryImages, "geometry", "keywords", false) }} #}
+
+        slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        walk = (x - startX) * 2; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        //console.log(walk);
+        });
+
+        for(var image of images){
+        image.addEventListener('click', (e)=>{
+            console.log("click", e.target)
+            console.log("walk", walk)
+        if(walk > 10 || walk < -10){
+            console.log(walk, e.target)
+            e.preventDefault();
+        }
+        }) 
+        }
+    }
+</script>

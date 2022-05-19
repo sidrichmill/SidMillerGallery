@@ -5,80 +5,37 @@ layout: 'base.njk'
 
 ---
 
+{% from "macro/imageSlider.njk" import imageSlider with context %}
 
 <main id="main-content" tabindex="-1" class="wrapper">
-    <article class="post flow">
 
 {% for tag in featuredAlbums %}
-<a href="/keywords/{{ tag | slug }}/">
-    <h3>{{ tag | capitalize }}</h3>
-</a>
-<ul class="featuredSlider" id="{{loop.index}}">
-    {% set count = 0 %}
-    {% for image in cloudinaryImages %}
-        {% if tag in image.keywords %}
-            {% set count = count + 1 %}
-            <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
-                <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                    <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                </a>
-            </li>
-        {% endif %}
-    {% endfor %}
-</ul>
-    {# {% if image.width > image.height * 2 %}
-                            panoramic
-                        {% elif image.width > image.height %}
-                            landscape
-                        {% elif image.width < image.height %}
-                            portrait
-                        {% endif %} #}
+    {{ imageSlider(cloudinaryImages, tag, "keywords", true) }}
+    {# <div class="sliderContainer">
+        <a class="sliderTitle" href="/keywords/{{ tag | slug }}/">
+            <h3>{{ tag | capitalize }}</h3>
+        </a>
+        <ul class="featuredSlider" id="{{loop.index}}">
+            {% set count = 0 %}
+            {% for image in cloudinaryImages | shuffle %}
+                {% if tag in image.keywords %}
+                    {% set count = count + 1 %}
+                    <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
+                        <a class="imageLink" href="/gallery/{{ image.name | slug }}">
+                            <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div> #}
 {% endfor %}
 
-</ul>
-
-    </article>
 </main>
 
-<style>
-    .featuredSlider{
-        display: flex;
-        flex-wrap: nowrap;
-        list-style-type: none;
-        gap: .5rem;
-        cursor: grab;
-        overflow-x: scroll;
-        height: 40vh;
-        {# scroll-snap-type: inline mandatory; #}
-        padding-inline-start: 0;
-    }
-
-    .featuredSlider > * {
-        flex-shrink: 0;
-        {# scroll-snap-align: start; #}
-    }
-
-    .sliderItem {
-        height: 100%;
-    }
-
-    .sliderImg {
-        height: 100%;
-        max-height: 100%;
-        min-width: 100%;
-        object-fit: cover;
-    }
-
-    @media (max-width: 750px){
-        .panoramicItem{
-            display: none;
-        }
-    }
-
-</style>
 
 <script>
-    const sliders = document.querySelectorAll('.featuredSlider')
+const sliders = document.querySelectorAll('.featuredSlider')
     //const slider = document.querySelector('.featuredSlider')
     
 
@@ -132,8 +89,4 @@ for(let slider of sliders){
     }) 
     }
 }
-   
-
-
-
 </script>

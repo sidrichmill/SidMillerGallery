@@ -26,6 +26,10 @@ module.exports = function (eleventyConfig) {
     return shuffle(array);
   });
 
+  eleventyConfig.addFilter("limit", function (array, limit) {
+    return array.slice(0, limit);
+  });
+
   eleventyConfig.addFilter("typeof", function (object) {
     return typeof object;
   });
