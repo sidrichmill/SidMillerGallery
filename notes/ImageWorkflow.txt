@@ -1,0 +1,27 @@
+// Image Preperation //
+- Capture Scanned image
+- Edit Images
+    - Convert Image to positive
+    - Color Correction
+    - Remove Dust / Scratches
+- Add Metadata
+- Publish from Lightroom to Hard Drive
+    - Write Metadata to Exif (where applicable)
+    - Write Keywords
+
+// Data Parse //
+
+- Generate 11ty Data files
+    - Get image data from API (Currently: Cloudinary > Move to exifr inside 11ty)
+    - Use 11ty Image Plugin (sharp) to generate sizes and responsive image markup
+
+// Upload //
+
+- Upload / Sync with server (Currently: Cloudinary > Mode onto Namecheap Server FTP)
+- Overwrite images on new file save?
+
+
+
+// Serve Photos at responsive sizes //
+
+ - Access directly on server

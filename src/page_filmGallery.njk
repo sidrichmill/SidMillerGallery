@@ -12,7 +12,7 @@ pagination:
 permalink: "/{{ subdirectory }}/{{ clfilm | slug }}/"
 ---
 
----
+{# ---
 
 layout: 'base.njk'
 
@@ -44,7 +44,7 @@ permalink: /film/{{ clfilm | slug }}/
                         {% endif %}
                         
                             <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                            
                         </a>
                     {% endif %}
                 {% endif %} 
@@ -74,4 +74,4 @@ permalink: /film/{{ clfilm | slug }}/
     </style>
 
 </noscript>
-
+ #}

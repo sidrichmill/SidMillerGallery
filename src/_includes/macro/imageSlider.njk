@@ -1,0 +1,38 @@
+{% macro imageSlider(dataSource, filterData, attr, shuffle=false) %}
+    
+        {% if shuffle %}
+            {% set dataArray = dataSource | shuffle %}
+          {# {{"shuffle!" | log }} #}
+        {% elif not shuffle %}   
+        {% set dataArray = dataSource %}
+           {# {{"not shuffle!" | log }} #}
+        {% endif %}
+
+        {% set imageIndex = 0 %}
+    {# {% for tag in filterData %} #}
+    <div class="sliderContainer">
+        <a class="sliderTitle" href="/keywords/{{ filterData | slug }}/">
+            <h3>{{ filterData | capitalize }}</h3>
+        </a>
+        <ul class="featuredSlider" id="{{loop.index}}">
+            {% set count = 0 %}
+            {% for image in dataArray %}
+                {% set filterType = image[attr] | typeof %}
+                    {% if filterType == "object" %}
+                        {% set filterArray = image[attr] %}
+                    {% elif filterType == "string" %}
+                        {% set filterArray = [image[attr]] %}
+                    {% endif %}
+                {% if filterData in filterArray %}
+                    {% set count = count + 1 %}
+                    <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
+                        <a class="imageLink" href="/gallery/{{ image.name | slug }}">
+                            <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{# {% endfor %} #}
+{% endmacro %}
