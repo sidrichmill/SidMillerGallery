@@ -1,27 +1,47 @@
 :root {
-  --color-hue: 25;
-  --primary-lightness: 50%;
-  --darken-percentage: 10%;
   --color-light: hsl(0, 0%, 100%);
   --color-light-shade: hsl(156, 100%, 99%);
   --color-dark: hsl(178, 73%, 9%);
-  --color-primary: hsl(var(--color-hue), 55%, var(--primary-lightness));
-  --color-primary-shade: hsl(var(--color-hue), 50%, calc(var(--primary-lightness) - var(--darken-percentage)));
+  --color-primary: #b4b4b4;
+  --color-primary-shade: #858585;
+
+  --header-color: var(--color-primary);
+  --header-text-color: var(--color-dark);
 }
 
+html[data-theme='light'] {
+  --body-color: var(--color-light);
+  --text-color: var(--color-dark)
+}
+
+html[data-theme='light'] header{
+  --header-text-color: var(--color-dark) 
+}
+
+html[data-theme='dark'] {
+  /* --body-color: var(--color-dark);
+  --text-color: var(--color-light); */
+}
+
+html[data-theme='dark'] header{
+  --header-text-color: var(--color-light) 
+}
+
+
+
 body {
-  background: var(--color-light-shade);
-  color: var(--color-dark);
+  background: var(--body-color);
+  color: var(--text-color);
   line-height: 1.5;
   font-family: "Jost", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
 }
 
 h1,
-h2 {
+h2, h3{
   /* font-family: "Jost", Georgia, "Times New Roman", Times, serif; */
   font-stretch: 50%;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.1;
   max-width: 30ch;
 }
@@ -124,10 +144,10 @@ img {
 
 .site-head {
   padding: 0.6rem 0;
-  background: var(--color-primary);
-  border-block-start: 5px solid var(--color-primary);
-  border-block-end: 5px solid var(--color-primary-shade);
-  color: var(--color-light);
+  background: var(--header-color);
+  /* border-block-start: 5px solid var(--color-primary);
+  border-block-end: 5px solid var(--color-primary-shade); */
+  color: var(--header-text-color);
   line-height: 1.1;
   margin-block-end: 1rem;
 }
@@ -202,7 +222,7 @@ img {
   border-radius: 3px;
   left: 50%;
   margin-left: -12px;
-  transition: transform 350ms ease-in-out;
+  transition: transform 250ms ease-in-out;
 }
 
 .burger-menu__bar {
@@ -264,7 +284,7 @@ img {
 .burger-menu[enabled="true"][status="open"] .burger-menu__panel {
   visibility: visible;
   opacity: 1;
-  transition: opacity 200ms ease;
+  transition: opacity 100ms ease;
 }
 
 .burger-menu[enabled="true"][status="closed"] .burger-menu__panel > * {
@@ -425,7 +445,7 @@ img {
   }
 
   .site-head__brand {
-    width: 18rem;
+    width: 16rem;
     text-decoration: none;
     overflow: hidden;
   }

@@ -1,17 +1,20 @@
 ---
 layout: 'base.njk'
-
 pagination:
-  data: cloudinaryImages
+  data: local_image_data
   size: 1
   alias: image
 permalink: "gallery/{{ image.name | slug }}/index.html"
 
+themeIsDark: image.colorisDark
 ---
 
-<div class="container">
+{# {{ image.colorisDark | dump }} #}
+
+    <div class="container">
     <div class="image-wrapper" id="imageWrapper">
-        <img class="hero-image" src="{{ cloudinary.baseUrl }}{{ image.urlSlug }}" alt="placeholder image alt" height="{{ image.height }}" width="{{ image.width }}">
+        {# <img class="hero-image" src="{{ cloudinary.baseUrl }}{{ image.urlSlug }}" alt="placeholder image alt" height="{{ image.height }}" width="{{ image.width }}"> #}
+        {% imageShortcode image.path , image.altText | trim , "300px 600px 1200px 3000px", "hero-image" %}
     </div>
     
     <div class="tag-list">
@@ -49,8 +52,12 @@ permalink: "gallery/{{ image.name | slug }}/index.html"
 </div>
 
 <style>
-body{
+    :root{
+    --color-primary: {{ image.color }}
+    } 
+
+{# body{
     max-height: 100vh;
-}
+} #}
 
 </style>

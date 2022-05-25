@@ -1,31 +1,38 @@
 {% macro fjGallery(dataSource, filterData, attr, shuffle=false) %}
-    
-    {# {{ filterData | log }} #}
+    {# {{ dataSource | dump }} #}
+    {{ filterData | dump }}
+    {{ attr | dump }}
+
     <div class="gallery">
         {% if shuffle %}
             {% set dataArray = dataSource | shuffle %}
           {# {{"shuffle!" | log }} #}
         {% elif not shuffle %}   
-        {% set dataArray = dataSource %}
+            {% set dataArray = dataSource %}
            {# {{"not shuffle!" | log }} #}
         {% endif %}
-
         {% set imageIndex = 0 %}
+
         {% for image in dataArray %}
-            {# {{[image[attr]] | log}} #}
-            
+        
             {% set filterType = image[attr] | typeof %}
                 {% if filterType == "object" %}
                     {% set filterArray = image[attr] %}
                  {% elif filterType == "string" %}
                     {% set filterArray = [image[attr]] %}
                 {% endif %}
+                
            {% for keyword in filterArray %}
                 {% if filterData == keyword %}
-                {% set imageIndex = imageIndex + 1 %}
+                    {{ image.path | dump }} <br>
+                    {% set imageIndex = imageIndex + 1 %}
                         <a class="gallery-item {% if image.width > image.height * 2 %} panoramic{% elif image.width > image.height %} landscape{% elif image.width < image.height %} portrait{% endif %} hidden" href="/gallery/{{ image.name | slug }}">
-                            <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" {% if imageIndex > 5 %}loading="lazy"{% endif %}>
-                            {# width="{{ image.width }}" height="{{ image.height }}" #}
+                        {# <a class="gallery-item hidden" href="/gallery/{{ image.name | slug }}"> #}
+                            {# <img class="thumbnail-img hidden" src="{{ image.path }}" {% if imageIndex > 5 %}loading="lazy"{% endif %}> #}
+                            {# <img class="thumbnail-img hidden" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" {% if imageIndex > 5 %}loading="lazy"{% endif %}> #}
+                           
+                            {% imageShortcode image.path , image.altText | trim , "300px 600px 1200px 3000px" , "thumbnail-img hidden", 0 %}
+
                         </a>
                 {% endif %} 
             {% endfor %}

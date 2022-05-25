@@ -27,7 +27,9 @@
                     {% set count = count + 1 %}
                     <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
                         <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                            <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                            {# <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy"> #}
+                            {% imageShortcode image.path , image.altText | trim , "300px 600px 1200px 3000px" , "sliderImg" %}
+                            
                         </a>
                     </li>
                 {% endif %}

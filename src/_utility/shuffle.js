@@ -1,4 +1,4 @@
-exports.shuffle = function (array) {
+exports.doShuffle = function (array) {
   var currentIndex = array.length;
   var temporaryValue, randomIndex;
 

@@ -32,10 +32,10 @@ function initGallery() {
   }
   // get all images and add their width and height attribute
   let images = document.getElementsByTagName("img");
-  for (var image of images) {
-    image.width = image.dataset.width;
-    image.height = image.dataset.height;
-  }
+  // for (var image of images) {
+  //   image.width = image.dataset.width;
+  //   image.height = image.dataset.height;
+  // }
   // initialize fj-gallery
   let fjgallery = fjGallery(document.querySelectorAll(".fj-gallery"), {
     itemSelector: ".fj-gallery-item",
@@ -45,37 +45,6 @@ function initGallery() {
 
   console.log("initGallery has run");
 }
-
-// function initVertical(){
-
-//     // var gallery = document.querySelector('.fj-gallery');
-//      //console.log(gallery);
-//     // gallery.classList.remove("fj-gallery");
-//     // gallery.classList.add("vertical");
-
-//     let images = document.getElementsByTagName("img");
-//     for(var image of images){
-//         image.removeAttribute("height");
-//     };
-
-//     var imgWidthVert = Math.round(viewWidth*.9);
-//     //showImages(imgWidthVert);
-
-//     let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
-
-//     for(var box of boxes){showElement(box)};
-//     //console.log(images);
-//     for(var image of images){
-//         if(image.complete){
-//             showElement(image);
-//         }else{
-//             image.addEventListener("load", (event) => showElement(event.target))
-//         }
-
-//     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidthVert + "/" +  image.dataset.slug;
-//     image.src = newSrc;
-//     };
-// };
 
 function showImages(inputWidth) {
   let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
@@ -87,19 +56,20 @@ function showImages(inputWidth) {
   let images = document.querySelectorAll(".thumbnail-img");
   //console.log(images);
   for (var image of images) {
-    image.width = image.dataset.width;
-    image.height = image.dataset.height;
-    image.addEventListener("error", (event) => console.log(event));
-    if (inputWidth === undefined) {
-      var imgWidth = Math.round(image.dataset.ratio * rowMax);
-      console.log(inputWidth, "inputWidth is undefined");
-    } else {
-      var imgWidth = inputWidth;
-      console.log(inputWidth, "inputWidth is defined");
-    }
+    // image.width = image.dataset.width;
+    // image.height = image.dataset.height;
+    // let imageRatio = image.width/image.height;
+    // image.addEventListener("error", (event) => console.log(event));
+    // if (inputWidth === undefined) {
+    //   var imgWidth = Math.round(imageRatio * rowMax);
+    //   console.log(inputWidth, "inputWidth is undefined");
+    // } else {
+    //   var imgWidth = inputWidth;
+    //   console.log(inputWidth, "inputWidth is defined");
+    // }
 
-    var newSrc = baseURL + "c_scale,w_" + imgWidth + "/" + image.dataset.slug;
-    image.src = newSrc;
+    // var newSrc = baseURL + "c_scale,w_" + imgWidth + "/" + image.dataset.slug;
+    // image.src = newSrc;
 
     if (image.complete) {
       showElement(image);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="{% if themeIsDark %}dark{% else %}light{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +15,8 @@
 </head>
 <body>
     {% include 'header.njk' %}
-
     
           {{ content | safe }}
-
 
     {# {% include 'footer.njk' %} #}
 

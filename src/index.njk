@@ -5,12 +5,13 @@ layout: 'base.njk'
 
 ---
 
-{% from "macro/imageSlider.njk" import imageSlider with context %}
+{# {% from "macro/imageSlider.njk" import imageSlider with context %} #}
 
 <main id="main-content" tabindex="-1" class="wrapper">
 
 {% for tag in featuredAlbums %}
-    {{ imageSlider(cloudinaryImages, tag, "keywords", true) }}
+    {# {{ imageSlider(local_image_data, tag, "keywords", true) }} #}
+    {% imageSliderShortcode local_image_data, tag, "keywords", true, 3 %}
     {# <div class="sliderContainer">
         <a class="sliderTitle" href="/keywords/{{ tag | slug }}/">
             <h3>{{ tag | capitalize }}</h3>

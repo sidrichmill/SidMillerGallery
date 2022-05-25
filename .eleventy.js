@@ -1,13 +1,194 @@
-const { shuffle } = require("./src/_utility/shuffle.js");
+const { doShuffle } = require("./src/_utility/shuffle.js");
+const Image = require("@11ty/eleventy-img");
+const path = require("path");
+var slug = require("slugify");
+
+async function imageShortcode(
+  src,
+  alt,
+  sizes,
+  cls = "",
+  wid = [300, 600, 1200, null],
+  options = {}
+) {
+  let metadata = await Image(src, {
+    widths: wid,
+    formats: ["jpeg"],
+    outputDir: "./public/img/",
+    filenameFormat: function (id, src, width, format) {
+      const extension = path.extname(src);
+      const name = path.basename(src, extension);
+      return `${name}-${width}w.${format}`;
+    },
+  });
+
+  let imageAttributes = {
+    class: cls,
+    alt,
+    sizes,
+    loading: "lazy",
+    decoding: "async",
+  };
+
+  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+  return Image.generateHTML(metadata, imageAttributes, options);
+}
+
+async function fjgalleryShortcode(
+  dataSource,
+  filterData,
+  attr,
+  shuffle = false,
+  ratingFilter = 0
+) {
+  let dataArray;
+  let gallery_items = "";
+
+  if (shuffle) {
+    dataArray = doShuffle(dataSource).filter((e) => e.rating >= ratingFilter);
+  } else {
+    dataArray = dataSource.filter((e) => e.rating >= ratingFilter);
+  }
+
+  for (let image of dataArray) {
+    let filterArray =
+      typeof image[attr] == "string"
+        ? [image[attr]]
+        : typeof image[attr] == "object"
+        ? image[attr]
+        : [];
+    let aspect_ratio =
+      image.width > image.height * 2
+        ? "panoramic"
+        : image.width > image.height
+        ? "landscape"
+        : image.width < image.height
+        ? "portrait"
+        : "";
+    let image_basis =
+      image.width > image.height * 2
+        ? "(min-width: 1100px) 60vw, 90vw"
+        : image.width > image.height
+        ? "(max-width: 545px) 90vw, (min-width: 1100px) 50vw, 90vw"
+        : image.width < image.height
+        ? "(max-width: 545px) 90vw, (min-width: 1100px) 30vw, 30vw"
+        : "90vw";
+
+    for (let keyword of filterArray) {
+      if (filterData == keyword) {
+        let image_tag = await imageShortcode(
+          image.path,
+          image.altText.trim(),
+          image_basis,
+          "thumbnail-img hidden",
+          [300, 600, 900]
+        );
+
+        gallery_items += `<a class="gallery-item ${aspect_ratio} hidden" href="/gallery/${slug(
+          image.name
+        )}">
+          ${image_tag}
+        </a>`;
+      }
+    }
+  }
+
+  // console.log(gallery_items);
+
+  return `<div class="gallery">
+  ${gallery_items}
+  </div>
+  <script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
+  <script src="/js/fjGallery.min.js"></script>
+  <script src="/js/initGallery.js"></script>
+
+  <noscript>
+      <style>
+          .hidden{
+              opacity: 1
+          }
+          .fj-gallery{
+              display: flex;
+              flex-wrap: wrap;
+              gap: 1vw;
+          }
+          .fj-gallery-item{
+              flex: 1 0 25vw;
+              background-color: transparent;
+          }
+      </style>
+
+  </noscript>`;
+}
+
+async function imageSliderShortcode(
+  dataSource,
+  filterData,
+  attr,
+  shuffle = false,
+  ratingFilter = 0
+) {
+  let dataArray;
+  let gallery_items = "";
+
+  if (shuffle) {
+    dataArray = doShuffle(dataSource).filter((e) => e.rating >= ratingFilter);
+  } else {
+    dataArray = dataSource.filter((e) => e.rating >= ratingFilter);
+  }
+
+  for (let image of dataArray) {
+    let filterArray =
+      typeof image[attr] == "string"
+        ? [image[attr]]
+        : typeof image[attr] == "object"
+        ? image[attr]
+        : [];
+
+    for (let keyword of filterArray) {
+      if (filterData == keyword) {
+        let image_tag = await imageShortcode(
+          image.path,
+          image.altText.trim(),
+          "30vw",
+          "sliderImg",
+          [300, 600, 900]
+        );
+        let aspect_ratio =
+          image.width > image.height * 2
+            ? "panoramicItem"
+            : image.width > image.height
+            ? "landscapeItem"
+            : image.width < image.height
+            ? "portraitItem"
+            : "";
+        gallery_items += `<li class="sliderItem ${aspect_ratio}" style="aspect-ratio:${
+          image.width
+        }/${image.height}">
+        <a class="imageLink" href="/gallery/${slug(image.name)}">
+          ${image_tag}
+        </a>
+        </li>`;
+      }
+    }
+  }
+
+  // console.log(gallery_items);
+
+  return `<div class="sliderContainer">
+  <a class="sliderTitle" href="/keywords/${slug(filterData)}/">
+            <h3>${filterData}</h3>
+        </a>
+  <ul class="featuredSlider">
+    ${gallery_items}
+  </ul>
+  </div>`;
+}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("./src/style");
   eleventyConfig.addPassthroughCopy("./src/assets");
   eleventyConfig.addPassthroughCopy("./src/js");
-
-  // eleventyConfig.addNunjucksShortcode("slider", function(currentImage, imageList) {
-
-  //  });
 
   //collections
   // tags
@@ -22,8 +203,18 @@ module.exports = function (eleventyConfig) {
   //   });
   // });
 
+  eleventyConfig.addNunjucksAsyncShortcode("imageShortcode", imageShortcode);
+  eleventyConfig.addNunjucksAsyncShortcode(
+    "fjgalleryShortcode",
+    fjgalleryShortcode
+  );
+  eleventyConfig.addNunjucksAsyncShortcode(
+    "imageSliderShortcode",
+    imageSliderShortcode
+  );
+
   eleventyConfig.addFilter("shuffle", function (array) {
-    return shuffle(array);
+    return doShuffle(array);
   });
 
   eleventyConfig.addFilter("limit", function (array, limit) {
