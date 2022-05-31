@@ -1,55 +1,50 @@
-const fs = require("fs");
-var exifr = require("exifr");
+const exifr = require("exifr");
 const path = require("path");
-const sizeOf = require("image-size");
 const { getAverageColor } = require("fast-average-color-node");
+const { promisify } = require('util');
+const sizeOf = promisify(require("image-size"));
+const { resolve } = require('path');
+const { readdir } = require('fs').promises;
 
-let allImagesData = [];
 
-function getImageDirSync(baseDir) {
-  var directory = [];
-  var dirList = fs.readdirSync(baseDir, { withFileTypes: true });
+async function getFiles(dir) {
+  const dirents = await readdir(dir, { withFileTypes: true });
+  const files = await Promise.all(dirents.map((dirent) => {
+    const res = resolve(dir, dirent.name);
+    return dirent.isDirectory() ? getFiles(res) : res;
+  }));
+    let EXTENSION = '.jpg'
+  return files.flat().filter(file => {
+    return path.extname(file).toLowerCase() === EXTENSION;
+});}
 
-  for (file of dirList) {
-    file["path"] = baseDir + "/" + file.name;
-    var imageList = fs.readdirSync(file.path);
+async function getFileData(baseDir){
+    let fileList = await getFiles(baseDir).catch(e => console.error("Error from getFiles:" + e));
+    return Promise.all(fileList.map((image) => {
+        let imageData = getImageData(image);
+        //console.log("imageData", imageData);
+        return imageData}));
+   }
 
-    const folderObj = {
-      dirName: file.name,
-      dirPath: file.path,
-      files: imageList,
-    };
-    //console.log(folderObj);
-    directory.push(folderObj);
-  }
-  getSubdir(directory);
-}
-
-async function getSubdir(baseDir) {
-  for (subdir of baseDir) {
-    getImageData(subdir);
-  }
-}
-
-async function getImageData(dir) {
-  console.log(dir.files.length);
-  for (var image of dir.files) {
-    var fileName = image;
-    var imageSrc = dir.dirPath + "/" + image;
+async function getImageData(filePath){
+    let fileName = path.basename(filePath);
     // console.log(image);
-    var dimensions = await sizeOf(imageSrc);
-    // console.log("dimension", dimensions);
+    // var dimensions = await sizeOf(imageSrc);
+    
+    //let imageBuffer = fs.readFileSync(filePath);
+    let dimensions = await sizeOf(filePath).catch(e => console.error(fileName, e));
+
+     //console.log("dimension", fileName, dimensions);
     //get image metadata filtered for keywords. Output is an array of keywords
-    var exifData = await exifr
-      .parse(imageSrc, { iptc: true, xmp: true })
+    let exifData = await exifr
+      .parse(filePath, { iptc: true, xmp: true })
       .catch(console.error);
     // console.log("exifData.ImageWidth", exifData.ImageWidth);
+    let keywordsArray = [];
+    if(exifData){keywordsArray = exifData.Keywords;}
 
-    var keywordsArray = exifData.Keywords;
-
+    let analogMetadata = {};
     if (exifData.Instructions) {
-      var analogMetadata = {};
-
       exifData.Instructions.split(", ").forEach((e) => {
         let split = e.split("=");
         analogMetadata[split[0].trim().toLowerCase()] = split[1].trim();
@@ -67,7 +62,7 @@ async function getImageData(dir) {
         ? [exifData.PersonInImage]
         : exifData.PersonInImage;
 
-    var toRemove = new Set(
+    let toRemove = new Set(
       [].concat(
         analogMetadata.camera,
         analogMetadata.lens,
@@ -76,47 +71,47 @@ async function getImageData(dir) {
       )
     );
 
-    var filteredKeywords = [
+    let filteredKeywords = [
       ...new Set(keywordsArray.filter((x) => !toRemove.has(x))),
     ];
 
-    let colorObject = await getAverageColor(imageSrc).catch(console.error);
+    let colorObject = await getAverageColor(filePath, {algorithm: "dominant"}).catch(console.error);
     // console.log(imageSrc, colorObject);
 
-    // build object for image with relevent data for ifCloudinary
-    var imageData = {
-      file: fileName,
-      imageSrc: imageSrc,
-      altText: exifData.Caption,
-      name: path.basename(imageSrc, path.extname(imageSrc)),
-      path: imageSrc,
-      album: dir.dirName,
-      rating: exifData.Rating || 0,
-      tags: exifData.Keywords,
-      keywords: filteredKeywords,
-      width: dimensions.width,
-      height: dimensions.height,
-      color: colorObject.hex,
-      colorisDark: colorObject.isDark,
-      people: peopleArray,
-      camera: analogMetadata.camera,
-      lens: analogMetadata.lens,
-      film: analogMetadata.film,
-    };
-
-    allImagesData.push(imageData);
-    // console.log(imageData);
-    //imageDataList.push(imageData);
-    //   uploadImage(imageData);
-  }
-
-  // return allImagesData;
+    return new Promise((resolve, reject) => {
+     // build object for image with relevent data for ifCloudinary
+        let imageData = {
+            file: fileName,
+            imageSrc: filePath,
+            altText: exifData.Caption,
+            name: path.basename(filePath, path.extname(filePath)),
+            path: filePath,
+            album: path.basename(path.dirname(filePath)),
+            rating: exifData.Rating || 0,
+            tags: exifData.Keywords,
+            keywords: filteredKeywords,
+            width: dimensions.width,
+            height: dimensions.height,
+            color: colorObject.hex,
+            colorisDark: colorObject.isDark,
+            people: peopleArray,
+            camera: analogMetadata.camera,
+             lens: analogMetadata.lens,
+            film: analogMetadata.film,
+        };
+   
+        resolve(imageData);})
 }
 
-//getImageDirSync("D:/Programming/SidMillerGallery/imageTest");
+/* async function run(){
+    let data = await getFileData("./image_upload");
+    console.log("data", await data);
+}
+
+run(); */
 
 module.exports = async function () {
-  await getImageDirSync("./image_upload");
-  console.log(allImagesData[0]);
-  return allImagesData;
+ let completeData = await getFileData("./image_upload");
+    //console.log(completeData);
+   return completeData;
 };
