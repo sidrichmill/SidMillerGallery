@@ -1,0 +1,25 @@
+---
+layout: 'base.njk'
+---
+
+<div class="container">
+    {% for image in local_image_data %}
+        <div class="box" style="color:{{ "white" if image.colorisDark else "black" }}; background-color:{{image.color}}"><h3>{{ "Dark" if image.colorisDark else "Light" }}<br><a href="/gallery/{{ image.name | slug }}">{{ image.name }}</a><br>{{image.color}}<h3></div>
+    {% endfor %}
+</div>
+
+<style>
+.container {
+    width: 80vw;
+    max-width: 1000px
+    }
+
+.box{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+    padding: 5px;
+    width: 30ch;
+    height: 10ch;
+    }
+</style>

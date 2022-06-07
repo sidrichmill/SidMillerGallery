@@ -1,0 +1,53 @@
+---
+
+layout: 'base.njk'
+permalink: /gallery-index/
+
+---
+<main id="main-content" tabindex="-1" class="gallery-wrapper">
+{% for directory in imageDirectories.children %}
+    <details>
+        <summary>{{ directory.name }}</summary>
+        <ul class="gallery">
+            {% for image in directory.children %}
+                
+                <li class="gallery-item" id="{{ image.name | slug }}">{% imageShortcode image.path , "" , "300px 600px 1200px 3000px", "thumbnail-img landscape" %}
+                    <dialog id="{{ image.name | slug }}-modal">
+                        {% imageShortcode image.path , "" , "300px 600px 1200px 3000px", "modal-img" %}
+                        {{ image.name }}
+                        {# {% local_image_data | selectattr("name", image.name) | dump %} #}
+                    </dialog>
+                </li>
+            {% endfor %}
+        </ul>
+    </details>
+
+{% endfor %}
+
+    <details>
+        <summary>Data Dump</summary>
+        {{ imageDirectories | dump }}
+    </details>
+</main>
+
+<style>
+
+.modal-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    height: auto;
+}
+
+</style>
+
+<script>
+let images = document.querySelectorAll(".gallery-item");
+
+for(image of images){
+    let modalItem = image.getElementsByTagName("dialog")[0];
+    console.log("modalItem", modalItem)
+    image.addEventListener('click', () => {
+        modalItem.showModal();
+    })
+}
+</script>

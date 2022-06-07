@@ -2,3 +2,6 @@ node_modules
 .env
 public
 image_upload
+.DS_Store
+220207_RB67_PRN_100_04.jpg
+imageTest

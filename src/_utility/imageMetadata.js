@@ -3,37 +3,10 @@ const path = require("path");
 const { getAverageColor } = require("fast-average-color-node");
 const { promisify } = require("util");
 const sizeOf = promisify(require("image-size"));
-const { resolve } = require("path");
-const { readdir } = require("fs").promises;
 
-async function getFiles(dir) {
-  const dirents = await readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(
-    dirents.map((dirent) => {
-      const res = resolve(dir, dirent.name);
-      return dirent.isDirectory() ? getFiles(res) : res;
-    })
-  );
-  let EXTENSION = ".jpg";
-  return files.flat().filter((file) => {
-    return path.extname(file).toLowerCase() === EXTENSION;
-  });
-}
+//console.log("ImageDirectories", imageDirectories());
 
-async function getFileData(baseDir) {
-  let fileList = await getFiles(baseDir).catch((e) =>
-    console.error("Error from getFiles:" + e)
-  );
-  return Promise.all(
-    fileList.map((image) => {
-      let imageData = getImageData(image);
-      //console.log("imageData", imageData);
-      return imageData;
-    })
-  );
-}
-
-async function getImageData(filePath) {
+module.getMeta = async function (filePath) {
   let fileName = path.basename(filePath);
   // console.log(image);
   // var dimensions = await sizeOf(imageSrc);
@@ -115,7 +88,7 @@ async function getImageData(filePath) {
 
     resolve(imageData);
   });
-}
+};
 
 /* async function run(){
     let data = await getFileData("./image_upload");
@@ -123,11 +96,3 @@ async function getImageData(filePath) {
 }
 
 run(); */
-
-module.exports = async function () {
-  // return await getFileData("./image_upload");
-  return new Promise((resolve) => {
-    let data = getFileData("./image_upload");
-    resolve(data);
-  });
-};

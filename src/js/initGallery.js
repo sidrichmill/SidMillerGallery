@@ -31,7 +31,7 @@ function initGallery() {
     item.classList.remove("gallery-item", "landscape", "portrait", "panoramic");
   }
   // get all images and add their width and height attribute
-  let images = document.getElementsByTagName("img");
+  let images = document.querySelectorAll("img, picture");
   // for (var image of images) {
   //   image.width = image.dataset.width;
   //   image.height = image.dataset.height;

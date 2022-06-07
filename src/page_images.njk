@@ -5,17 +5,33 @@ pagination:
   size: 1
   alias: image
 permalink: "gallery/{{ image.name | slug }}/index.html"
-
-themeIsDark: image.colorisDark
 ---
 
-{# {{ image.colorisDark | dump }} #}
 
     <div class="container">
     <div class="image-wrapper" id="imageWrapper">
+        
         {# <img class="hero-image" src="{{ cloudinary.baseUrl }}{{ image.urlSlug }}" alt="placeholder image alt" height="{{ image.height }}" width="{{ image.width }}"> #}
-        {% imageShortcode image.path , image.altText | trim , "300px 600px 1200px 3000px", "hero-image" %}
+        <div class="wrap" style="aspect-ratio:{{ image.width/image.height | round(3) }}; background-color:{{ image.color }};">
+            {% imageShortcode image.path , image.altText | trim , "300px 600px 1200px 3000px", "hero-image hidden" %}
+        </div>
     </div>
+
+    <script>
+        let hero = document.querySelector('.hero-image');
+    
+        if (hero.complete) {
+            showElement(image);
+        } else {
+            hero.addEventListener("load", (event) => showElement(event.target));
+        }
+
+        function showElement(el) {
+            //console.log("Show", el)
+            el.classList.add("shown");
+            el.classList.remove("hidden");
+        }
+    </script>
     
     <div class="tag-list">
         <h3>Details</h3>
@@ -53,11 +69,11 @@ themeIsDark: image.colorisDark
 
 <style>
     :root{
-    --color-primary: {{ image.color }}
+    --color-primary: {{ image.color }};
     } 
 
-{# body{
+/* body{
     max-height: 100vh;
-} #}
+} */
 
 </style>
