@@ -2,13 +2,14 @@ const { doShuffle } = require("./src/_utility/shuffle.js");
 const Image = require("@11ty/eleventy-img");
 const path = require("path");
 var slug = require("slugify");
+const { getMeta } = require("./src/_utility/imageMetadata.js");
 
 async function imageShortcode(
   src,
   alt,
   sizes,
   cls = "",
-  wid = [300, 600, 1200, null],
+  wid = [300, 600, 1200, 1600, null],
   options = {}
 ) {
   let metadata = await Image(src, {
@@ -51,12 +52,7 @@ async function fjgalleryShortcode(
   }
 
   for (let image of dataArray) {
-    let filterArray =
-      typeof image[attr] == "string"
-        ? [image[attr]]
-        : typeof image[attr] == "object"
-        ? image[attr]
-        : [];
+    let filterArray = [image[attr]].flat();
     let aspect_ratio =
       image.width > image.height * 2
         ? "panoramic"
@@ -69,9 +65,9 @@ async function fjgalleryShortcode(
       image.width > image.height * 2
         ? "(min-width: 1100px) 60vw, 90vw"
         : image.width > image.height
-        ? "(max-width: 545px) 90vw, (min-width: 1100px) 50vw, 90vw"
+        ? "(max-width: 545px) 90vw, (min-width: 1100px) 40vw, 60vw"
         : image.width < image.height
-        ? "(max-width: 545px) 90vw, (min-width: 1100px) 30vw, 30vw"
+        ? "(max-width: 545px) 90vw, (min-width: 1100px) 25vw, 30vw"
         : "90vw";
 
     for (let keyword of filterArray) {
@@ -80,45 +76,45 @@ async function fjgalleryShortcode(
           image.path,
           image.altText.trim(),
           image_basis,
-          "thumbnail-img hidden",
-          [300, 600, 900]
+          "thumbnail-img hidden"
         );
 
-        gallery_items += `<a class="gallery-item ${aspect_ratio} hidden" href="/gallery/${slug(
-          image.name
-        )}">
+        gallery_items += `<a class="gallery-item ${aspect_ratio} hidden" style="--image-color:${
+          image.color
+        }" href="/gallery/${slug(image.name)}">
           ${image_tag}
         </a>`;
       }
     }
   }
 
-  // console.log(gallery_items);
+  // TEMPLATE LITERAL HTML
+  return `<div class="gallery">${gallery_items}</div>
+    <script>
+      console.log(
+        "window.innerHeight logged before calling JS",
+        window.innerHeight
+      );
+    </script>
+    <script src="/js/fjGallery.min.js"></script>
+    <script src="/js/initGallery.js"></script>
 
-  return `<div class="gallery">
-  ${gallery_items}
-  </div>
-  <script> console.log("window.innerHeight logged before calling JS", window.innerHeight);</script>
-  <script src="/js/fjGallery.min.js"></script>
-  <script src="/js/initGallery.js"></script>
-
-  <noscript>
+    <noscript>
       <style>
-          .hidden{
-              opacity: 1
-          }
-          .fj-gallery{
-              display: flex;
-              flex-wrap: wrap;
-              gap: 1vw;
-          }
-          .fj-gallery-item{
-              flex: 1 0 25vw;
-              background-color: transparent;
-          }
+        .hidden {
+          opacity: 1;
+          animation: fadeInAnimation ease 0.3s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+          pointer-events: all;
+        }
+        .gallery {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1vw;
+        }
       </style>
-
-  </noscript>`;
+    </noscript>`;
 }
 
 async function imageSliderShortcode(
@@ -138,21 +134,14 @@ async function imageSliderShortcode(
   }
 
   for (let image of dataArray) {
-    let filterArray =
-      typeof image[attr] == "string"
-        ? [image[attr]]
-        : typeof image[attr] == "object"
-        ? image[attr]
-        : [];
-
+    let filterArray = [image[attr]].flat();
     for (let keyword of filterArray) {
       if (filterData == keyword) {
         let image_tag = await imageShortcode(
           image.path,
           image.altText.trim(),
           "30vw",
-          "sliderImg",
-          [300, 600, 900]
+          "sliderImg"
         );
         let aspect_ratio =
           image.width > image.height * 2
@@ -212,6 +201,15 @@ module.exports = function (eleventyConfig) {
     "imageSliderShortcode",
     imageSliderShortcode
   );
+  eleventyConfig.addFilter("matchattr", function (name, data, attribute) {
+    let matches = [];
+    for (item of data) {
+      if (name == item[attribute]) {
+        matches.push(item);
+      }
+    }
+    return matches;
+  });
 
   eleventyConfig.addFilter("shuffle", function (array) {
     return doShuffle(array);
