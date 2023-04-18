@@ -6,8 +6,10 @@
     "cloudinary": "^1.26.3",
     "directory-tree": "^3.3.0",
     "exifr": "^7.1.3",
+    "flat-cache": "^3.0.4",
     "image-size": "^1.0.1",
     "justified-layout": "^4.1.0",
+    "luxon": "^2.4.0",
     "node-iptc": "^1.0.5",
     "probe-image-size": "^7.2.3"
   },

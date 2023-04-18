@@ -9,19 +9,20 @@ async function imageShortcode(
   alt,
   sizes,
   cls = "",
-  wid = [300, 600, 1200, 1600, null],
+  wid = [300, 1200, null],
   options = {}
 ) {
   let metadata = await Image(src, {
     widths: wid,
     formats: ["jpeg"],
     outputDir: "./public/img/",
-    filenameFormat: function (id, src, width, format) {
-      const extension = path.extname(src);
-      const name = path.basename(src, extension);
-      return `${name}-${width}w.${format}`;
-    },
+    // filenameFormat: function (id, src, width, format) {
+    //   const extension = path.extname(src);
+    //   const name = path.basename(src, extension);
+    //   return `${name}-${width}w.${format}`;
+    // },
   });
+  console.log("imageMetadata", src);
 
   let imageAttributes = {
     class: cls,
@@ -137,10 +138,19 @@ async function imageSliderShortcode(
     let filterArray = [image[attr]].flat();
     for (let keyword of filterArray) {
       if (filterData == keyword) {
+        let image_basis =
+          image.width > image.height * 2 //panoramic
+            ? "(min-width: 1100px) 60vw, 90vw"
+            : image.width > image.height //landscape
+            ? "(max-width: 545px) 90vw, (min-width: 1100px) 40vw, 60vw"
+            : image.width < image.height //portrait
+            ? "(max-width: 545px) 90vw, (min-width: 1100px) 25vw, 30vw"
+            : "90vw";
+
         let image_tag = await imageShortcode(
           image.path,
-          image.altText.trim(),
-          "30vw",
+          image.altText,
+          image_basis,
           "sliderImg"
         );
         let aspect_ratio =
