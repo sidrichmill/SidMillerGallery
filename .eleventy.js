@@ -12,28 +12,32 @@ async function imageShortcode(
   wid = [300, 1200, null],
   options = {}
 ) {
-  let metadata = await Image(src, {
-    widths: wid,
-    formats: ["jpeg"],
-    outputDir: "./public/img/",
-    // filenameFormat: function (id, src, width, format) {
-    //   const extension = path.extname(src);
-    //   const name = path.basename(src, extension);
-    //   return `${name}-${width}w.${format}`;
-    // },
-  });
-  console.log("imageMetadata", src);
+  if (path.extname(src).toLowerCase() === ".jpg") {
+    let metadata = await Image(src, {
+      widths: wid,
+      formats: ["jpeg"],
+      outputDir: "./public/img/",
+      // filenameFormat: function (id, src, width, format) {
+      //   const extension = path.extname(src);
+      //   const name = path.basename(src, extension);
+      //   return `${name}-${width}w.${format}`;
+      // },
+    });
+    console.log("imageMetadata", src);
 
-  let imageAttributes = {
-    class: cls,
-    alt,
-    sizes,
-    loading: "lazy",
-    decoding: "async",
-  };
+    let imageAttributes = {
+      class: cls,
+      alt,
+      sizes,
+      loading: "lazy",
+      decoding: "async",
+    };
 
-  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
-  return Image.generateHTML(metadata, imageAttributes, options);
+    // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+    return Image.generateHTML(metadata, imageAttributes, options);
+  } else {
+    console.log("Bad ext. or wrong file type:", src);
+  }
 }
 
 async function fjgalleryShortcode(
