@@ -33,8 +33,8 @@ async function getFiles(dir) {
   let filteredDirents = dirents.filter(
     (dirent) => !dirent.name.startsWith("_")
   );
-  // console.log("ParentDir", dir);
-  // console.log("filteredDirents", filteredDirents);
+  console.log("ParentDir", dir);
+  //console.log("filteredDirents", filteredDirents);
   const files = await Promise.all(
     filteredDirents.map((dirent) => {
       const res = resolve(dir, dirent.name);
@@ -55,14 +55,18 @@ async function getFileData(baseDir) {
   let fileList = await getFiles(baseDir).catch((e) =>
     console.error("Error from getFiles:" + e)
   );
-  console.log("Number of files being analyzed:", fileList.length);
-  return Promise.all(
-    fileList.map((image) => {
-      let imageData = getImageData(image);
-      //console.log("imageData", imageData);
-      return imageData;
-    })
-  );
+  if (fileList.length > 0) {
+    console.log("Number of files being analyzed:", fileList.length);
+    return Promise.all(
+      fileList.map((image) => {
+        let imageData = getImageData(image);
+        //console.log("imageData", imageData);
+        return imageData;
+      })
+    );
+  } else {
+    console.log("fileList error");
+  }
 }
 
 async function getImageData(filePath) {
@@ -196,12 +200,12 @@ async function run(breaker = false) {
   await getFileData(process.env.IMAGE_PATH);
   cache.save(true);
   let data = Object.values(cache.all());
-  console.log(data[0]);
+  //console.log(data[0]);
   return data;
 }
 
 module.exports = run;
 
-if (args[0]) {
-  run(args[1]);
-}
+// if (args[0]) {
+//   run(args[1]);
+// }
