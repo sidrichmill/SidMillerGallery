@@ -2,3 +2,7 @@ node_modules
 .env
 public
 image_upload
+imageTest
+_drafts/*.jpg
+*/.DS_Store
+.DS_Store
