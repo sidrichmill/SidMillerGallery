@@ -136,6 +136,10 @@ function writeCache(data, path) {
   });
 }
 
+function syncEXIFtoContext(image){
+  
+}
+
 getImages();
 
 //example output:
