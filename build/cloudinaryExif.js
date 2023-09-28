@@ -1,5 +1,4 @@
 //This should run once before building the site. It should get all the images and their metadata to be organized and used.
-
 require("dotenv").config();
 var cloudinary = require("cloudinary");
 const path = require("path");
@@ -22,7 +21,7 @@ cloudinary.config({
   secure: true,
 });
 
-async function getImages() {
+async function getImages(limit=500) {
   var json_data = [];
   var keywordList = new Set();
   var cameraList = new Set();
@@ -31,11 +30,12 @@ async function getImages() {
   var rollList = new Set();
   var nameList = new Set();
 
+
   var data = await cloudinary.v2.api.resources(
     {
       type: "upload",
       prefix: cloudinaryFolder, //your folder
-      max_results: 1,
+      max_results: limit,
     },
     function (error, result) {
       if (error) {
@@ -79,7 +79,7 @@ async function getImages() {
     
       var people = image.image_metadata.PersonInImage;
       if (people != null) {
-        var peopleList = people.split(",");
+        var peopleList = people.split(", ");
         for (var name of peopleList) {
           nameList.add(name);
         }
@@ -115,7 +115,7 @@ async function getImages() {
       film: imageTags.Film,
     }
 
-    console.log("Filtered Image Data", filteredImageData);
+    // console.log("Filtered Image Data", filteredImageData);
 
     json_data.push(filteredImageData);
 
@@ -134,13 +134,14 @@ async function getImages() {
     rollList.add(albumName);
   }
 
-//   writeCache(json_data, imagecachePath);
-//   writeCache([...keywordList], keywordcachePath);
-//   writeCache([...rollList], rollcachePath);
-//   writeCache([...nameList], namecachePath);
-//   writeCache([...cameraList], cameracachePath);
-//   writeCache([...lensList], lenscachePath);
-//   writeCache([...filmList], filmcachePath);
+  console.log("Number of Images read:", json_data.length);
+  writeCache(json_data, imagecachePath);
+  writeCache([...keywordList], keywordcachePath);
+  writeCache([...rollList], rollcachePath);
+  writeCache([...nameList], namecachePath);
+  writeCache([...cameraList], cameracachePath);
+  writeCache([...lensList], lenscachePath);
+  writeCache([...filmList], filmcachePath);
 }
 
 function writeCache(data, path) {
@@ -151,8 +152,9 @@ function writeCache(data, path) {
   });
 }
 
-getImages();
+getImages(500);
 
+cloudinary.v2.api.usage().then(result=>console.log("Cloudinary Rate Limit remaining", result.rate_limit_remaining));
 //example output:
 
 // "file": "archive/201225_Graflex_HP5_400/201225_Graflex_HP5_400_01",
@@ -180,44 +182,3 @@ getImages();
 // "film": "Ilford HP5+ 400"
 
 //   
-
-
-async function getFilteredData(image) {
-
-      //get image metadata filtered for keywords. Output is an array of keywords
-      let exifData = image.image_metadata;
-
-    //   var caption = exifData.ImageDescription || "";
-    //   var color = exifData.ConvertToGrayscale ? "black and white" : "color";
-      var keywordsArray = exifData.Keywords;
-      var Instructions = exifData.Instructions;
-      if (Instructions) {
-        var contextArray = Instructions.split(", ");
-      }
-  
-      if (contextArray) {
-        var filteredContext = contextArray.filter((string) =>
-          string.includes("=")
-        );
-      } else {
-        var filteredContext = [];
-      }
-  
-      var people = exifData.PersonInImage;
-      console.log("People", people);
-      if (people) {
-        var peoplestring = "people=" + people;
-        filteredContext.push(peoplestring);
-      }
-      var imageMeta = filteredContext.join("|");
-      // build object for image with relevent data for Cloudinary
-      var imageData = {
-        name: fileName,
-        folderName: dir.dirName,
-        imageSrc: imageSrc,
-        tags: keywordsArray,
-        metadata: imageMeta,
-      };
-      console.log(imageData);
-      return imageData;
-    }
