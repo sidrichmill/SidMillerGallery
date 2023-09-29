@@ -9,7 +9,7 @@ layout: 'base.njk'
 <main id="main-content" tabindex="-1" class="wrapper">
 
     {% for tag in featuredAlbums %}
-        {{ imageSlider(cloudinaryImages, tag, "keywords", false) }}
+        {{ imageSlider(images.images, tag, "keywords", false) }}
     {% endfor %}
     
 </main>

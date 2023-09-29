@@ -5,11 +5,11 @@ attribute: 'keywords'
 randomized: true
 
 pagination:
-  data: cloudinaryTags
+  data: images.keywords
   size: 1
-  alias: cltag
+  alias: keyword
 
-permalink: "/{{ subdirectory }}/{{ cltag | slug }}/"
+permalink: "/{{ subdirectory }}/{{ keyword | slug }}/"
 ---
 {# ---
 

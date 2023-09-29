@@ -15,11 +15,11 @@ layout: 'base.njk'
     <h3>{{ tag | capitalize }}</h3>
 </a>
 <ul class="featuredSlider">
-    {% for image in cloudinaryImages %}
+    {% for image in images.images %}
         {% if tag in image.keywords %}
             <li class="sliderItem">
                 <a class="imageLink" href="/gallery/{{ image.name | slug }}#imageWrapper">
-                    <img class="thumbnail-img" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_400/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                    <img class="thumbnail-img" src="{{ imagekit.baseUrl }}{{ imagekit.small }}{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                 </a>
             </li>
         {% endif %}

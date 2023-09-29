@@ -2,7 +2,7 @@
     <label for="tags">Explore another:</label>
     <select name="tags" id="tags" onchange="location.assign(this.value)">
         <option value="" selected>category</option>
-        {% for keyword in cloudinaryTags | sort() %}
+        {% for keyword in images.keywords | sort() %}
             <option value="/keywords/{{ keyword | slug }}/">{{ keyword }}</option>
             {# <option value="/keywords/{{ keyword | slug }}/" {% if keyword === cltag %}selected{% endif %}>{{ keyword }}</option> #}
         {% endfor %}

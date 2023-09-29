@@ -4,7 +4,7 @@ layout: 'base.njk'
 
 ---
 <ul> People
-{% for person in cloudinaryNames %}
+{% for person in images.people %}
     <li><a href="/people/{{ person | slug}}">{{ person }}</a></li>
 {% endfor %}
 </ul>

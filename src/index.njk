@@ -9,8 +9,12 @@ layout: 'base.njk'
 
 <main id="main-content" tabindex="-1" class="wrapper">
 
+{# {% for album in images.albums %}
+{{album}}
+{% endfor %} #}
+
 {% for tag in featuredAlbums %}
-    {{ imageSlider(cloudinaryImages, tag, "keywords", true) }}
+    {{ imageSlider(images.images, tag, "keywords", true) }}
     {# <div class="sliderContainer">
         <a class="sliderTitle" href="/keywords/{{ tag | slug }}/">
             <h3>{{ tag | capitalize }}</h3>

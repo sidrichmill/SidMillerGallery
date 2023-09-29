@@ -17,7 +17,7 @@ console.log(
   rowMax
 );
 
-var baseURL = "https://res.cloudinary.com/sid-miller-design/";
+var baseURL = "https://ik.imagekit.io/sidmiller/";
 
 function initGallery() {
   // if js is enabled & >600px gallery is changed to .fj-gallery
@@ -98,7 +98,7 @@ function showImages(inputWidth) {
       console.log(inputWidth, "inputWidth is defined");
     }
 
-    var newSrc = baseURL + "c_scale,w_" + imgWidth + "/" + image.dataset.slug;
+    var newSrc = baseURL + "tr:w_" + imgWidth + "/" + image.dataset.slug;
     image.src = newSrc;
 
     if (image.complete) {

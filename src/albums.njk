@@ -4,7 +4,7 @@ layout: 'base.njk'
 
 ---
 <ul> Albums
-{% for roll in cloudinaryRolls %}
+{% for roll in images.albums %}
     <li><a href="/albums/{{ roll | slug }}">{{ roll }}</a></li>
 {% endfor %}
 </ul>

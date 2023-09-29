@@ -30,7 +30,7 @@ permalink: /albums/{{ album.name | slug }}/
                             <button class="gallery-item portrait hidden" onclick="goToSlider('{{ image.name | slug }}')">
                     {% endif %}
                         
-                            <img class="thumbnail-img hidden" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                            <img class="thumbnail-img hidden" src="{ imagekit.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                             {# width="{{ image.width }}" height="{{ image.height }}" #}
                         </button>    
                     {% endif %}
@@ -45,7 +45,7 @@ permalink: /albums/{{ album.name | slug }}/
                 {% if not loop.first %}
                     <a class="sliderButton" href="#{{ album.files[loop.index0 - 1].name | slug }}"><</a>
                 {% endif %}
-                    <img class="sliderImage" src="{{ cloudinary.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                    <img class="sliderImage" src="{{ imagekit.baseUrl }}c_scale,f_auto,h_800/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                 {% if not loop.last %}
                     <a class="sliderButton" href="#{{ album.files[loop.index0 + 1].name | slug }}">></a>
                 {% endif %}

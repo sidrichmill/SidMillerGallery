@@ -10,6 +10,6 @@ layout: 'base.njk'
 {{ tagSelector( pagination.pages , subdirectory) }}
 
 {% from "macro/fjGallery.njk" import fjGallery %}
-{{ fjGallery(cloudinaryImages, pagination.items[0], attribute, randomize) }}
+{{ fjGallery(images.images, pagination.items[0], attribute, randomize) }}
 
-</main>
+</main>  

@@ -1,0 +1,7 @@
+{
+    "baseUrl": "https://ik.imagekit.io/sidmiller/",
+    "xsmall": "tr:w_300,q_70/",
+    "small": "tr:w_500,q_70/",
+    "medium": "tr:w_800,q_70/",
+    "large": "tr:w_1200,q_70/"
+}

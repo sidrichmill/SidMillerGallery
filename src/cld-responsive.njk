@@ -65,10 +65,11 @@ That size is established and then cloudinary gets the dimensions of the containe
     <h2>Cloudinary Responsive Plugin</h2>
 
     <div class="gallery">
-        {% for image in cloudinaryImages %}
+        {% for image in images.images %}
                     {% if loop.index0 < 24 %}    
                         <a class="gallery-item hidden" href="/cloudinaryImages/{{ image.file | slug }}/">
-                                <img class="hidden" src="{{ cloudinary.baseUrl }}c_scale,h_150,e_blur:100/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
+                            {# removed blur?? #}
+                                <img class="hidden" src="{{ imagekit.baseUrl }}tr:h_150{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
                                 {#   data-src="{{ cloudinary.baseUrl }}w_auto,c_scale/{{ image.urlSlug }}" cld-responsive #}
                         </a>
                     {% endif %}

@@ -4,7 +4,7 @@ title: Gallery
 layout: 'base.njk'
 
 pagination:
-  data: cloudinaryTags
+  data: images.keywords
   size: 1
   alias: cltag
 permalink: /cloudinarytags/{{ cltag | slug }}/
@@ -17,8 +17,8 @@ permalink: /cloudinarytags/{{ cltag | slug }}/
 
 <ul class="gallery">
 
-{% for image in cloudinaryImages %}
-  {% for tag in image.tags %}
+{% for image in images.images %}
+  {% for tag in image.keywords %}
     {% if cltag === tag %}
       {% if image.width >= image.height*2 %}
         <li class="thumbnail panoramic">
@@ -31,14 +31,14 @@ permalink: /cloudinarytags/{{ cltag | slug }}/
       {% endif %}
       
        {# <a href="/cloudinaryImages/{{ image.file | slug }}/"><img class="thumbnail-img" src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}" alt="placeholder alr" loading="lazy"></a> #}
-       <a href="/cloudinaryImages/{{ image.file | slug }}/">
+       <a href="/images/{{ image.file | slug }}/">
           <img 
             class="thumbnail-img" 
-            srcset="{{ cloudinary.baseUrl }}{{ cloudinary.xsmall }}{{ image.urlSlug }} 200w,
-                    {{ cloudinary.baseUrl }}{{ cloudinary.medium }}{{ image.urlSlug }} 1200w,
-                    {{ cloudinary.baseUrl }}{{ cloudinary.large }}{{ image.urlSlug }} 2000w"
+            srcset="{{ imagekit.baseUrl }}{{ imagekit.xsmall }}{{ image.urlSlug }} 200w,
+                    {{ imagekit.baseUrl }}{{ imagekit.medium }}{{ image.urlSlug }} 1200w,
+                    {{ imagekit.baseUrl }}{{ imagekit.large }}{{ image.urlSlug }} 2000w"
             sizes="(max-width: 800px) 200px, (max-width: 1200px) 1200px, (max-width: 2000px) 2000px"
-            src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}"
+            src="{{ imagekit.baseUrl }}{{ imagekit.small }}{{ image.urlSlug }}"
             alt="placeholder alt" 
             loading="lazy">
        </a>

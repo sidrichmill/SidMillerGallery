@@ -5,11 +5,11 @@ attribute: 'people'
 randomized: true
 
 pagination:
-  data: cloudinaryNames
+  data: images.people
   size: 1
-  alias: clname
+  alias: name
 
-permalink: "/{{ subdirectory }}/{{ clname | slug }}/"
+permalink: "/{{ subdirectory }}/{{ name | slug }}/"
 ---
 
 {# 

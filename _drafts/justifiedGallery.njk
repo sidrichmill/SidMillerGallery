@@ -39,7 +39,7 @@ layout: 'base.njk'
 
 <div class="fj-gallery">
 
-{% for image in cloudinaryImages %}
+{% for image in images.images %}
     {% if image %}
         
     {% endif %}
@@ -47,12 +47,12 @@ layout: 'base.njk'
        {# <div class="fj-gallery-item"><img src="{{ cloudinary.baseUrl }}{{ cloudinary.xsmall }}{{ image.urlSlug }}" alt="{{ image.altText }}" loading="lazy" width="{{ image.width }}" height="{{ image.height }}"></div> #}
        <div class="fj-gallery-item">
             <img 
-            srcset="{{ cloudinary.baseUrl }}l_text:Arial_200:xsmall/{{ cloudinary.xsmall }}{{ image.urlSlug }} 300w,
-                    {{ cloudinary.baseUrl }}l_text:Arial_200:small/{{ cloudinary.small }}{{ image.urlSlug }} 500w,
-                    {{ cloudinary.baseUrl }}l_text:Arial_200:medium/{{ cloudinary.medium }}{{ image.urlSlug }} 800w,
-                    {{ cloudinary.baseUrl }}l_text:Arial_200:large/{{ cloudinary.large }}{{ image.urlSlug }} 1200w"
+            srcset="{{ imagekit.baseUrl }}l_text:Arial_200:xsmall/{{ cloudinary.xsmall }}{{ image.urlSlug }} 300w,
+                    {{ imagekit.baseUrl }}l_text:Arial_200:small/{{ cloudinary.small }}{{ image.urlSlug }} 500w,
+                    {{ imagekit.baseUrl }}l_text:Arial_200:medium/{{ cloudinary.medium }}{{ image.urlSlug }} 800w,
+                    {{ imagekit.baseUrl }}l_text:Arial_200:large/{{ cloudinary.large }}{{ image.urlSlug }} 1200w"
             sizes="(min-width: 865px) 40vw, 90vw"
-            src="{{ cloudinary.baseUrl }}{{ cloudinary.small }}{{ image.urlSlug }}"
+            src="{{ imagekit.baseUrl }}{{ imagekit.small }}{{ image.urlSlug }}"
             alt="{{ image.altText }}" 
             loading="lazy"
             data-width="{{ image.width }}" 

@@ -6,35 +6,35 @@ layout: 'base.njk'
     <ul class="list__container">
         <li class="list__card"><h3>People:</h3>
             <ul>
-                {% for name in cloudinaryNames | sort() %}
+                {% for name in images.people | sort() %}
                     <li><a href="/people/{{ name | slug }}">{{ name }}</a></li>
                 {% endfor %}
             </ul>
         </li>
         <li class="list__card"><h3>Cameras:</h3>
             <ul>
-                {% for camera in cloudinaryCameras | sort()  %}
+                {% for camera in images.cameras | sort()  %}
                     <li><a href="/camera/{{ camera | slug }}">{{ camera }}</a></li>
                 {% endfor %}
             </ul>
         </li>
         <li class="list__card"><h3>Film Stocks:</h3>
             <ul> 
-                {% for film in cloudinaryFilms | sort()  %}
+                {% for film in images.films | sort()  %}
                     <li><a href="/film/{{ film | slug }}">{{ film }}</a></li>
                 {% endfor %}
             </ul>
         </li>
         <li class="list__card"><h3>Lenses:</h3>
             <ul>
-                {% for lens in cloudinaryLenses | sort()  %}
+                {% for lens in images.lenses | sort()  %}
                     <li><a href="/lens/{{ lens | slug }}">{{ lens }}</a></li>
                 {% endfor %}
             </ul>
         </li>
         <li class="list__card"><h3>Categories:</h3>
             <ul>
-                {% for tag in cloudinaryTags | sort() %}
+                {% for tag in images.keywords | sort() %}
                     <li><a href="/keywords/{{ tag | slug }}">{{ tag }}</a></li>
                 {% endfor %}
             </ul>
