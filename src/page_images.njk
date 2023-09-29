@@ -25,9 +25,15 @@ permalink: "gallery/{{ image.name | slug }}/index.html"
                 <li>Album: <a href="/albums/{{ image.album | slug }}">{{ image.album }}</a></li>
 
                 {% if image.people.length > 0 %} 
+                {% set peopleType = image.people | typeof %}
+                    {% if peopleType == "object" %}
+                        {% set peopleArray = image.people %}
+                    {% elif peopleType == "string" %}
+                        {% set peopleArray = [image.people] %}
+                    {% endif %}
                 <li>People:
                     <ul> 
-                        {% for person in image.people %}
+                        {% for person in peopleArray %}
                             <li><a href="/people/{{ person | slug }}">{{ person }}</a></li>
                         {% endfor %}
                     </ul>

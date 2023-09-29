@@ -25,7 +25,8 @@
                     {% if filterData == keyword %}
                         {% set imageIndex = imageIndex + 1 %}
                                 <a class="gallery-item {% if image.width > image.height * 2 %} panoramic{% elif image.width > image.height %} landscape{% elif image.width < image.height %} portrait{% endif %} hidden" href="/gallery/{{ image.name | slug }}">
-                                    <img class="thumbnail-img hidden" src="{{ imagekit.baseUrl }}tr:h_800{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" {% if imageIndex > 5 %}loading="lazy"{% endif %}>
+                                    <img class="thumbnail-img hidden" src="{{ imagekit.baseUrl }}tr:h-800{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" >
+                                    {# {% if imageIndex > 5 %}loading="lazy"{% endif %} #}
                                     {# width="{{ image.width }}" height="{{ image.height }}" #}
                                 </a>
                     {% endif %} 

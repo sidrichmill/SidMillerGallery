@@ -98,12 +98,13 @@ function showImages(inputWidth) {
       console.log(inputWidth, "inputWidth is defined");
     }
 
-    var newSrc = baseURL + "tr:w_" + imgWidth + "/" + image.dataset.slug;
+    var newSrc = baseURL + "tr:w-" + imgWidth + image.dataset.slug;
     image.src = newSrc;
 
     if (image.complete) {
       showElement(image);
     } else {
+      console.log("Image Not Shown", image)
       image.addEventListener("load", (event) => showElement(event.target));
     }
   }

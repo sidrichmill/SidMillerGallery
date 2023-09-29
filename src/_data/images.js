@@ -108,11 +108,11 @@ module.exports = async function() {
 
   let output = {
     images: imageData,
-    albums: [... new Set(imageData.map((x) => x.album))],
-    keywords: [...new Set(imageData.map((x) => x.keywords).flat())],
-    cameras: [...new Set(imageData.map((x) => x.camera))],
-    lenses: [...new Set(imageData.map((x) => x.lens))],
-    films: [...new Set(imageData.map((x) => x.film))],
+    albums: [... new Set(imageData.map((x) => x.album).filter(x => x))],
+    keywords: [...new Set(imageData.map((x) => x.keywords).flat().filter(x => x))],
+    cameras: [...new Set(imageData.map((x) => x.camera).filter(x => x))],
+    lenses: [...new Set(imageData.map((x) => x.lens).filter(x => x))],
+    films: [...new Set(imageData.map((x) => x.film).filter(x => x))],
     people: [...new Set(imageData.map((x) => x.people).flat().filter(x => x))] //filter removes undefined values
   }
   
