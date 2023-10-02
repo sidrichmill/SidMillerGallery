@@ -15,24 +15,6 @@ layout: 'base.njk'
 
 {% for tag in featuredAlbums %}
     {{ imageSlider(images.images, tag, "keywords", true) }}
-    {# <div class="sliderContainer">
-        <a class="sliderTitle" href="/keywords/{{ tag | slug }}/">
-            <h3>{{ tag | capitalize }}</h3>
-        </a>
-        <ul class="featuredSlider" id="{{loop.index}}">
-            {% set count = 0 %}
-            {% for image in cloudinaryImages | shuffle %}
-                {% if tag in image.keywords %}
-                    {% set count = count + 1 %}
-                    <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
-                        <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                            <img class="sliderImg" src="{{ cloudinary.baseUrl }}c_scale,h_600/{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                        </a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div> #}
 {% endfor %}
 
 </main>
@@ -41,12 +23,15 @@ layout: 'base.njk'
 <script>
 const sliders = document.querySelectorAll('.featuredSlider')
     //const slider = document.querySelector('.featuredSlider')
+    var baseURL = "https://ik.imagekit.io/sidmiller/";
+    let viewHeight = document.documentElement.clientHeight;
+    let imageHeight = Math.round((viewHeight/100)* 40)
     
 
 
 for(let slider of sliders){
     const images = slider.getElementsByTagName('img');
-    console.log("🚀 ~ file: index.njk ~ line 72 ~ slider", slider)
+    console.log("Slider", slider)
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -91,6 +76,15 @@ for(let slider of sliders){
         e.preventDefault();
     }
     }) 
+        var newSrc = baseURL + "tr:h-" + imageHeight + ",q-80" + image.dataset.slug;
+        image.src = newSrc
     }
 }
+
+
+</script>
+
+<script>
+
+    
 </script>

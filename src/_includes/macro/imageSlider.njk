@@ -25,11 +25,13 @@
                     {% endif %}
                 {% if filterData in filterArray %}
                     {% set count = count + 1 %}
-                    <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
-                        <a class="imageLink" href="/gallery/{{ image.name | slug }}">
-                            <img class="sliderImg" src="{{ imagekit.baseUrl }}{{ large }}{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
-                        </a>
-                    </li>
+                    {% if count < 10 %}
+                        <li class="sliderItem{% if image.width > image.height * 2 %} panoramicItem{% elif image.width > image.height %} landscapeItem{% elif image.width < image.height %} portraitItem{% endif %}" id="item-{{ count }}">
+                            <a class="imageLink" href="/gallery/{{ image.name | slug }}">
+                                <img class="sliderImg" src="{{ imagekit.baseUrl }}{{ imagekit.blur }}{{ image.urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" {% if count > 4 %}loading="lazy"{% endif %}>
+                            </a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </ul>

@@ -16,7 +16,7 @@ pagination:
         <li>{{ item.name }}
             <ul>
                 <a href="/albums/{{ item.name | slug }}">
-                    <img class="thumbnail-img" src="{{ imagekit.baseUrl }}c_scale,f_auto,h_800/{{ item.files[12].urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
+                    <img class="thumbnail-img" src="{{ imagekit.baseUrl }}{{ imagekit.medium }}{{ item.files[12].urlSlug }}" data-slug="{{ image.urlSlug }}" data-ratio="{{ image.width/image.height }}" data-width="{{ image.width }}" data-height="{{ image.height }}" loading="lazy">
                 </a>
             </ul>
         </li>

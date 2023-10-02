@@ -3,5 +3,6 @@
     "xsmall": "tr:w-300,q_70/",
     "small": "tr:w-500,q_70/",
     "medium": "tr:w-800,q_70/",
-    "large": "tr:w-1200,q_70/"
+    "large": "tr:w-1200,q_70/",
+    "blur": "tr:bl-25"
 }

@@ -46,37 +46,6 @@ function initGallery() {
   console.log("initGallery has run");
 }
 
-// function initVertical(){
-
-//     // var gallery = document.querySelector('.fj-gallery');
-//      //console.log(gallery);
-//     // gallery.classList.remove("fj-gallery");
-//     // gallery.classList.add("vertical");
-
-//     let images = document.getElementsByTagName("img");
-//     for(var image of images){
-//         image.removeAttribute("height");
-//     };
-
-//     var imgWidthVert = Math.round(viewWidth*.9);
-//     //showImages(imgWidthVert);
-
-//     let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
-
-//     for(var box of boxes){showElement(box)};
-//     //console.log(images);
-//     for(var image of images){
-//         if(image.complete){
-//             showElement(image);
-//         }else{
-//             image.addEventListener("load", (event) => showElement(event.target))
-//         }
-
-//     var newSrc = baseURL + "c_scale,f_auto,w_" + imgWidthVert + "/" +  image.dataset.slug;
-//     image.src = newSrc;
-//     };
-// };
-
 function showImages(inputWidth) {
   let boxes = document.querySelectorAll(".gallery-item, .fj-gallery-item");
 
@@ -104,7 +73,6 @@ function showImages(inputWidth) {
     if (image.complete) {
       showElement(image);
     } else {
-      console.log("Image Not Shown", image)
       image.addEventListener("load", (event) => showElement(event.target));
     }
   }
@@ -119,7 +87,7 @@ function showImages(inputWidth) {
 // };
 
 function showElement(el) {
-  //console.log("Show", el)
+  // console.log("Show", el)
   el.classList.add("shown");
   el.classList.remove("hidden");
 }
